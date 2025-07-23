@@ -1,0 +1,27 @@
+[[plugin.deps]]
+use = "h-hg/yamb"
+rev = "22af003"
+hash = "7cc42012a7c2099f80064d228feb8d44"
+
+[[plugin.deps]]
+use = "stelcodes/bunny"
+rev = "ea27f37"
+hash = "7956295208401cdbdf2b673b73437edd"
+
+[[plugin.deps]]
+use = "boydaihungst/mediainfo"
+rev = "c6d0de7"
+hash = "7b024fc14b462235068400207cbe7bf0"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:full-border"
+rev = "63f9650"
+hash = "3996fc74044bc44144b323686f887e1"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:toggle-pane"
+rev = "63f9650"
+hash = "d5d4f3527592da5fbe77fd6f51815f80"
+
+[flavor]
+deps = []

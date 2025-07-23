@@ -1,0 +1,181 @@
+@define-color background #%%color0%%;
+@define-color color1 #%%color1%%;
+@define-color color2 #%%color2%%;
+@define-color color3 #%%color3%%;
+@define-color color4 #%%color4%%;
+@define-color color5 #%%color5%%;
+@define-color color6 #%%color6%%;
+@define-color color7 #%%color7%%;
+@define-color color8 #%%color8%%;
+@define-color color9 #%%color9%%;
+@define-color color10 #%%color10%%;
+@define-color color11 #%%color11%%;
+@define-color color12 #%%color12%%;
+@define-color color13 #%%color13%%;
+@define-color color14 #%%color14%%;
+@define-color foreground #%%color15%%;
+
+#window,
+#box,
+#aiScroll,
+#aiList,
+#search,
+#password,
+#input,
+#prompt,
+#clear,
+#typeahead,
+#list,
+child,
+scrollbar,
+slider,
+#item,
+#text,
+#label,
+#bar,
+#sub,
+#activationlabel {
+  all: unset;
+}
+
+#cfgerr {
+  background: rgba(255, 0, 0, 0.4);
+  margin-top: 20px;
+  padding: 8px;
+  font-size: 1.2em;
+}
+
+#window {
+  color: @foreground;
+}
+
+#box {
+  border-radius: 2px;
+  background: @background;
+  padding: 32px;
+  border: 1px solid @color1;
+  box-shadow:
+    0 19px 38px rgba(0, 0, 0, 0.3),
+    0 15px 12px rgba(0, 0, 0, 0.22);
+}
+
+#search {
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.1),
+    0 1px 2px rgba(0, 0, 0, 0.22);
+  background: @color0;
+  padding: 8px;
+}
+
+#prompt {
+  margin-left: 4px;
+  margin-right: 12px;
+  color: @foreground;
+  opacity: 0.2;
+}
+
+#clear {
+  color: @foreground;
+  opacity: 0.8;
+}
+
+#password,
+#input,
+#typeahead {
+  border-radius: 2px;
+}
+
+#input {
+  background: none;
+}
+
+#spinner {
+  padding: 8px;
+}
+
+#typeahead {
+  color: @foreground;
+  opacity: 0.8;
+}
+
+#input::placeholder {
+  opacity: 0.5;
+}
+
+#list {
+}
+
+child {
+  padding: 8px;
+  border-radius: 2px;
+}
+
+child:selected,
+child:hover {
+  background: @color1;
+  opacity: 0.4;
+}
+
+#item {
+}
+
+#icon {
+  margin-right: 8px;
+  color: @color7;
+}
+
+#text {
+  color: @foreground;
+}
+
+#label {
+  font-weight: 500;
+  color: @color15;
+}
+
+#sub {
+  opacity: 0.5;
+  font-size: 0.8em;
+  color: @color14;
+}
+
+#activationlabel {
+  color: @color13;
+}
+
+#bar {
+  background: @color3;
+}
+
+.barentry {
+  color: @color6;
+}
+
+.activation #activationlabel {
+  color: @color12;
+}
+
+.activation #text,
+.activation #icon,
+.activation #search {
+  opacity: 0.5;
+  color: @color8;
+}
+
+.aiItem {
+  padding: 10px;
+  border-radius: 2px;
+  color: @foreground;
+  background: @background;
+}
+
+.aiItem.user {
+  padding-left: 0;
+  padding-right: 0;
+  background: @color0;
+}
+
+.aiItem.assistant {
+  background: @color4;
+  color: @foreground;
+}

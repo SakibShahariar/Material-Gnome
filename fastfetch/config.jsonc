@@ -1,0 +1,201 @@
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+  "logo": {
+    "type": "small",
+    "height": 40,
+    "width": 30,
+    "padding": {
+      "top": 15,
+      "left": 3
+    }
+  },
+  "modules": [
+    {
+      "type": "custom",
+      "format": "{#90}  {#31}  {#32}  {#33}  {#34}  {#35}  {#36}  {#37}  {#38}  {#39}       {#38}  {#37}  {#36}  {#35}  {#34}  {#33}  {#32}  {#31}  {#90}"
+    },
+    "break",
+    {
+      "type": "custom",
+      "format": "\u001b[90m┌──────────────────────Hardware──────────────────────┐"
+    },
+    {
+      "type": "host",
+      "key": "╭─󰌢",
+      "keyColor": "green"
+    },
+    {
+      "type": "cpu",
+      "key": "├─󰻠",
+      "keyColor": "green"
+    },
+    {
+      "type": "gpu",
+      "key": "├─󰍛",
+      "keyColor": "green"
+    },
+    {
+      "type": "disk",
+      "key": "├─",
+      "keyColor": "green"
+    },
+    {
+      "type": "memory",
+      "key": "├─󰑭",
+      "keyColor": "green"
+    },
+    {
+      "type": "swap",
+      "key": "├─󰓡",
+      "keyColor": "green"
+    },
+    {
+      "type": "display",
+      "key": "├─󰍹",
+      "keyColor": "green"
+    },
+    {
+      "type": "battery",
+      "key": "├─",
+      "keyColor": "green"
+    },
+    {
+      "type": "media",
+      "key": "╰─",
+      "keyColor": "green"
+    },
+    {
+      "type": "custom",
+      "format": "\u001b[90m└────────────────────────────────────────────────────┘"
+    },
+    "break",
+    {
+      "type": "custom",
+      "format": "\u001b[90m┌──────────────────────Software──────────────────────┐"
+    },
+    {
+      "type": "shell",
+      "key": "╭─",
+      "keyColor": "yellow"
+    },
+    {
+      "type": "editor",
+      "key": "├─",
+      "keyColor": "yellow"
+    },
+    {
+      "type": "terminal",
+      "key": "├─",
+      "keyColor": "yellow"
+    },
+    {
+      "type": "terminalfont",
+      "key": "├─",
+      "keyColor": "yellow"
+    },
+    {
+      "type": "lm",
+      "key": "├─󰧨",
+      "keyColor": "yellow"
+    },
+    {
+      "type": "de",
+      "key": "├─",
+      "keyColor": "yellow"
+    },
+    {
+      "type": "wm",
+      "key": "╰─",
+      "keyColor": "yellow"
+    },
+    {
+      "type": "custom",
+      "format": "\u001b[90m└────────────────────────────────────────────────────┘"
+    },
+    "break",
+    {
+      "type": "custom",
+      "format": "\u001b[90m┌──────────────────────Appearance────────────────────┐"
+    },
+    {
+      "type": "theme",
+      "key": "╭─󰉼",
+      "keyColor": "magenta"
+    },
+    {
+      "type": "icons",
+      "key": "├─󰀻",
+      "keyColor": "magenta"
+    },
+    {
+      "type": "cursor",
+      "key": "├─󰆧",
+      "keyColor": "magenta"
+    },
+    {
+      "type": "wallpaper",
+      "key": "╰─󰸉",
+      "keyColor": "magenta"
+    },
+    {
+      "type": "custom",
+      "format": "\u001b[90m└────────────────────────────────────────────────────┘"
+    },
+    "break",
+    {
+      "type": "custom",
+      "format": "\u001b[90m┌──────────────────────User Info─────────────────────┐"
+    },
+    {
+      "type": "title",
+      "key": "╭─",
+      "keyColor": "blue"
+    },
+    {
+      "type": "os",
+      "key": "├─",
+      "keyColor": "blue"
+    },
+    {
+      "type": "kernel",
+      "key": "├─",
+      "keyColor": "blue"
+    },
+    {
+      "type": "packages",
+      "key": "├─󰏖",
+      "keyColor": "blue"
+    },
+    {
+      "type": "uptime",
+      "key": "├─󰅐",
+      "keyColor": "blue"
+    },
+    {
+      "type": "weather",
+      "key": "├─󰖕",
+      "keyColor": "blue",
+      "location": "auto"
+    },
+    {
+      "type": "wifi",
+      "key": "├─",
+      "keyColor": "blue",
+      "format": "{ssid}"
+    },
+    {
+      "type": "locale",
+      "key": "╰─",
+      "keyColor": "blue"
+    },
+    {
+      "type": "custom",
+      "format": "\u001b[90m└────────────────────────────────────────────────────┘"
+    },
+    "break",
+    {
+      "type": "custom",
+      "format": "{#90}  {#31}  {#32}  {#33}  {#34}  {#35}  {#36}  {#37}  {#38}  {#39}       {#38}  {#37}  {#36}  {#35}  {#34}  {#33}  {#32}  {#31}  {#90}"
+    }
+  ]
+}

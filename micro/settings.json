@@ -1,0 +1,21 @@
+{
+    "autosu": true,
+    "colorscheme": "colors",
+    "diffgutter": true,
+    "hlsearch": true,
+    "initlua": true,
+    "mkparents": true,
+    "pluginchannels": [
+        "https://raw.githubusercontent.com/micro-editor/plugin-channel/master/channel.json"
+    ],
+    "pluginrepos": [],
+    "rmtrailingws": true,
+    "savecursor": true,
+    "scrollbar": true,
+    "softwrap": true,
+    "statusformatl": "$(filename) $(modified)$(overwrite)($(line),$(col)) $(status.paste)| $(opt:fileformat) | $(opt:encoding)",
+    "statusformatr": "",
+    "sucmd": "doas",
+    "tabhighlight": true,
+    "wordwrap": true
+}
