@@ -1,10 +1,10 @@
 ## 📸 Screenshots
 
 ### 🔲 Without Blur
-![Material-Gnome](https://github.com/user-attachments/assets/4cb167e9-866d-4d7d-9c2b-ee20d5e5beba)
+![Material-Gnome](https://github.com/user-attachments/assets/2033fb23-3fcc-4a13-94a2-32127f342c13)
 
 ### 🌀 With Blur
-![Material-Gnome-blur](https://github.com/user-attachments/assets/51cdee13-cfdf-4bb4-becf-bef8899eef46)
+![Material-Gnome-blur](https://github.com/user-attachments/assets/d19b7e54-d1ad-48a0-8d92-b30d977187c1)
 
 ---
 
