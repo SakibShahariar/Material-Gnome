@@ -7,7 +7,8 @@
 ![Material-Gnome-blur](https://github.com/user-attachments/assets/d19b7e54-d1ad-48a0-8d92-b30d977187c1)
 
 ### 🌀 Wallpicker
-https://github.com/user-attachments/assets/1f5b8aa7-cb4c-4ae8-ba11-8ede537ffce2
+https://github.com/user-attachments/assets/6cff0cf5-478b-481b-842e-4e49608963d0
+
 
 ---
 
