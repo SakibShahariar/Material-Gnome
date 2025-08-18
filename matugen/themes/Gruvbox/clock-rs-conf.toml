@@ -1,0 +1,15 @@
+[general]
+color = "#83a598"
+interval = 200
+blink = false
+bold = false
+
+[position]
+horizontal = "center"
+vertical = "center"
+
+[date]
+fmt = "%A, %B %d, %Y"
+use_12h = true
+utc = false
+hide_seconds = true

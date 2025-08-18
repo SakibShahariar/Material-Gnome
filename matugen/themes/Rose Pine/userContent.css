@@ -1,0 +1,28 @@
+@-moz-document url-prefix("http://"), url-prefix("https://") {
+  :root {
+    --m3-selection-bg: {{colors.primary_fixed_dim.default.hex}};
+    --m3-selection-text: {{colors.on_primary_fixed.default.hex}};
+  }
+  
+  ::selection {
+    background-color: var(--m3-selection-bg) !important;
+    color: var(--m3-selection-text) !important;
+    -moz-text-fill-color: var(--m3-selection-text) !important; /* Firefox specific */
+  }
+  
+  /* Special cases */
+  input::selection, textarea::selection, [contenteditable]::selection {
+    background-color: color-mix(
+      in srgb, 
+      var(--m3-selection-bg) 85%, 
+      transparent
+    ) !important;
+  }
+  
+  /* PDF Viewer */
+  @-moz-document url-prefix("about:reader") {
+    ::selection {
+      background-color: var(--m3-selection-bg) !important;
+    }
+  }
+}

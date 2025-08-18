@@ -1,0 +1,22 @@
+:root {
+  /* 🌈 Base 16 Color Variables */
+  --color0: #0E1416;       /* background */
+  --color1: #292727;
+  --color2: #404030;
+  --color3: #BCC5EB;       /* foreground */
+  --color4: #7e7a6d;
+  --color5: #8c8b79;
+  --color6: #9e8a76;
+  --color7: #dad7a6;
+  --color8: #141400;
+  --color9: #333030;
+  --color10: #50503c;
+  --color11: #8c8c8c;
+  --color12: #9d9888;
+  --color13: #82D3E3;      /* primary accent */
+  --color23: #82D3E388;    /* transparent primary */
+  --color33: #82D3E333;    /* more transparent */
+  --color14: #c5ac93;      /* secondary accent */
+  --color15: #BCC5EB;      /* final highlight (on_surface) */
+}
+

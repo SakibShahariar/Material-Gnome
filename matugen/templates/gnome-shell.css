@@ -52,7 +52,7 @@
   height: 48px;
   border-radius: 24px;
   background-color: {{colors.on_primary_fixed_variant.default.hex}};
-  box-shadow: 0 0 2px 2px #c2dedb;
+  box-shadow: 0 0 2px 2px {{colors.on_primary_fixed_variant.default.hex}};
 }
 
 .pie-timer {
@@ -290,7 +290,7 @@
 /* Activities Ripple */
 .ripple-box {
   background-color: {{colors.primary.default.hex}};
-  box-shadow: 0 0 2px 2px #c2dedb;
+  box-shadow: 0 0 2px 2px {{colors.on_primary_fixed_variant.default.hex}};
   width: 52px;
   height: 52px;
   border-radius: 0 0 52px 0;
@@ -305,6 +305,7 @@
   background-color: {{colors.primary.default.hex}};
   border-radius: 21px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.35);
+  border: 2px solid {{colors.primary.default.hex}};
 }
 
 .modal-dialog-button:last-child, .modal-dialog-linked-button:last-child {
@@ -491,7 +492,7 @@
 
 .prompt-dialog-info-label,
 .prompt-dialog-null-label {
-  color: rgba(255, 251, 239, 0.5);
+  color: {{colors.on_surface_variant.default.hex}};
 }
 
 .polkit-dialog-user-layout {
@@ -598,7 +599,7 @@ StEntry StIcon.peek-password,
 StEntry StLabel.hint-text,
 .popup-menu .search-entry StLabel.hint-text {
   margin-left: 2px;
-  color: rgba(255, 251, 239, 0.5);
+  color: {{colors.on_surface_variant.default.hex}};
 }
 
 .hotplug-notification-item {
@@ -668,7 +669,7 @@ StEntry StLabel.hint-text,
 }
 
 .candidate-box:active {
-  background-color: rgba(255, 251, 239, 0.3);
+  background-color: {{colors.surface_container.default.hex}};
   color: {{colors.primary_fixed.default.hex}};
 }
 
@@ -1031,7 +1032,7 @@ StEntry StLabel.hint-text,
 }
 
 .login-dialog-user-list:expanded .login-dialog-user-list-item:selected, .login-dialog-user-list:expanded .login-dialog-user-list-item:hover, .login-dialog-user-list:expanded .login-dialog-user-list-item:active {
-  background-color: rgba(255, 251, 239, 0.3);
+  background-color: {{colors.surface_container.default.hex}};
   color: {{colors.on_surface.default.hex}};
 }
 
@@ -1063,7 +1064,7 @@ StEntry StLabel.hint-text,
 }
 
 .login-dialog-user-list-item:active, .login-dialog-user-list-item:focus:active {
-  background-color: rgba(255, 251, 239, 0.3) !important;
+  background-color: {{colors.surface_container.default.hex}} !important;
   color: {{colors.on_surface.default.hex}};
 }
 
@@ -1126,6 +1127,7 @@ StEntry StLabel.hint-text,
   border-radius: 20px;
   box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.25);
   color: {{colors.primary_fixed.default.hex}};
+  border: 2px solid {{colors.primary.default.hex}};
 }
 
 #LookingGlassDialog > #Toolbar {
@@ -1145,7 +1147,7 @@ StEntry StLabel.hint-text,
   -natural-hpadding: 12px;
   -minimum-hpadding: 12px;
   font-weight: bold;
-  color: rgba(255, 251, 239, 0.5);
+  color: {{colors.on_surface_variant.default.hex}};
   padding-left: 16px;
   padding-right: 16px;
   min-height: 32px;
@@ -1165,7 +1167,7 @@ StEntry StLabel.hint-text,
 #LookingGlassDialog .notebook-tab:selected {
   border-color: transparent;
   background-color: {{colors.on_tertiary.default.hex}};
-  box-shadow: inset 0 -2px 0px #f2efdf;
+  box-shadow: inset 0 -2px 0px {{colors.surface_container_lowest.default.hex}};
   color: {{colors.primary_fixed.default.hex}};
   text-shadow: none;
 }
@@ -1188,19 +1190,19 @@ StEntry StLabel.hint-text,
 }
 
 .lg-dialog .shell-link {
-  color: #81bea3;
+  color: {{colors.primary.default.hex}};
 }
 
 .lg-dialog .shell-link:hover {
-  color: #a3cfbc;
+  color: {{colors.primary_container.default.hex}};
 }
 
 .lg-dialog .shell-link:active {
-  color: #5fad8a;
+  color: {{colors.on_primary_container.default.hex}};
 }
 
 .lg-dialog .actor-link {
-  color: rgba(255, 251, 239, 0.5);
+  color: {{colors.on_surface_variant.default.hex}};
 }
 
 .lg-dialog .actor-link:hover {
@@ -1262,7 +1264,7 @@ StEntry StLabel.hint-text,
 
 .lg-extension:active {
   color: {{colors.primary_fixed.default.hex}};
-  background-color: rgba(255, 251, 239, 0.3);
+  background-color: {{colors.surface_container.default.hex}};
 }
 
 .lg-extension-meta {
@@ -1432,7 +1434,7 @@ StEntry StLabel.hint-text,
 }
 
 .nm-dialog-item:active {
-  background-color: rgba(255, 251, 239, 0.3);
+  background-color: {{colors.surface_container.default.hex}};
 }
 
 .nm-dialog-icon {
@@ -1444,7 +1446,7 @@ StEntry StLabel.hint-text,
 }
 
 .no-networks-label {
-  color: rgba(255, 251, 239, 0.5);
+  color: {{colors.on_surface_variant.default.hex}};
 }
 
 .no-networks-box {
@@ -1513,7 +1515,7 @@ StEntry StLabel.hint-text,
 
 #overview StScrollBar StButton#vhandle,
 #overview StScrollBar StButton#hhandle {
-  background-color: rgba(255, 251, 239, 0.5);
+  background-color: {{colors.on_surface_variant.default.hex}};
 }
 
 #overview StScrollBar StButton#vhandle:hover,
@@ -1539,14 +1541,14 @@ StEntry StLabel.hint-text,
   background-color: transparent;
   border: none;
   box-shadow: none;
-  margin: 2px 3px 0 3px;
   width: calc(100% - 32px);
-  height: 30px;
+  height: 35px;
   transition-duration: 250ms;
   color: rgba(255, 251, 239, 0.8);
   font-weight: bold;
   font-feature-settings: 'tnum';
   font-size: 12pt;
+  margin: 5px 6px 0px;
 }
 
 #panel .panel-corner {
@@ -1568,14 +1570,14 @@ StEntry StLabel.hint-text,
   border-radius: 16px;
   margin: 0 4px;
   padding: 4px 10px;
-  border: 2px solid {{colors.inverse_primary.default.hex}};
+  border: 2px solid {{colors.primary.default.hex}};
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
   text-shadow: none;
 }
 
 .panel-button.clock-display {
   background-color: {{colors.surface.default.hex}} !important;
-  border: 3px solid {{colors.inverse_primary.default.hex}} !important;
+  border: 3px solid {{colors.primary.default.hex}} !important;
   border-radius: 16px !important;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35) !important;
   padding: 4px 4px !important;
@@ -1780,6 +1782,7 @@ StEntry StLabel.hint-text,
   box-shadow: 0 6px 15px -6px rgba(0, 0, 0, 0.25);
   border: none;
   font-weight: normal;
+  border: 2px solid {{colors.primary.default.hex}};
 }
 
 .popup-menu .popup-menu-item {
@@ -1813,7 +1816,7 @@ StEntry StLabel.hint-text,
 }
 
 .popup-menu .popup-menu-item:checked:insensitive {
-  color: rgba(255, 251, 239, 0.32) !important;
+  color: {{colors.on_surface_variant.default.hex}} !important;
 }
 
 .popup-menu .popup-menu-item:focus, .popup-menu .popup-menu-item:hover, .popup-menu .popup-menu-item.selected {
@@ -1824,11 +1827,11 @@ StEntry StLabel.hint-text,
 
 .popup-menu .popup-menu-item:active, .popup-menu .popup-menu-item.selected:active {
   color: {{colors.primary.default.hex}} !important;
-  background-color: rgba(255, 251, 239, 0.3) !important;
+  background-color: {{colors.surface_container.default.hex}} !important;
 }
 
 .popup-menu .popup-menu-item:insensitive {
-  color: rgba(255, 251, 239, 0.32) !important;
+  color: {{colors.on_surface_variant.default.hex}} !important;
 }
 
 .popup-menu .popup-sub-menu {
@@ -1851,11 +1854,11 @@ StEntry StLabel.hint-text,
 
 .popup-menu .popup-sub-menu .popup-menu-item:active, .popup-menu .popup-sub-menu .popup-menu-item.selected:active {
   color: {{colors.primary_fixed.default.hex}} !important;
-  background-color: rgba(255, 251, 239, 0.3) !important;
+  background-color: {{colors.surface_container.default.hex}} !important;
 }
 
 .popup-menu .popup-sub-menu .popup-menu-item:insensitive {
-  color: rgba(255, 251, 239, 0.32) !important;
+  color: {{colors.on_surface_variant.default.hex}} !important;
 }
 
 .popup-menu .popup-inactive-menu-item {
@@ -1863,7 +1866,7 @@ StEntry StLabel.hint-text,
 }
 
 .popup-menu .popup-inactive-menu-item:insensitive {
-  color: rgba(255, 251, 239, 0.32) !important;
+  color: {{colors.on_surface_variant.default.hex}} !important;
 }
 
 .popup-menu.panel-menu {
@@ -1963,7 +1966,7 @@ StEntry StLabel.hint-text,
 
 .unlock-dialog-notifications-container .notification.critical,
 .unlock-dialog-notifications-container .unlock-dialog-notification-source.critical {
-  background-color: #39434a;
+  background-color: {{colors.primary_container.default.hex}};
 }
 
 .unlock-dialog-notification-label {
@@ -2027,7 +2030,7 @@ StScrollBar StBin#trough {
 StScrollBar StButton#vhandle,
 StScrollBar StButton#hhandle {
   border-radius: 9999px;
-  background-color: rgba(255, 251, 239, 0.5);
+  background-color: {{colors.on_surface_variant.default.hex}};
   border: 3px solid transparent;
   margin: 3px;
 }
@@ -2079,7 +2082,7 @@ StScrollBar StButton#hhandle:active {
 .search-entry .search-entry-icon {
   icon-size: 16px;
   padding: 0;
-  color: rgba(255, 251, 239, 0.32);
+  color: {{colors.on_surface_variant.default.hex}};
 }
 
 
@@ -2091,12 +2094,12 @@ StScrollBar StButton#hhandle:active {
 
 .search-entry:insensitive {
   border: none;
-  color: rgba(255, 251, 239, 0.32);
+  color: {{colors.on_surface_variant.default.hex}};
 }
 
 
 .search-entry StLabel.hint-text {
-  color: rgba(255, 251, 239, 0.5);
+  color: {{colors.on_surface_variant.default.hex}};
 }
 
 /* Slider */
@@ -2104,7 +2107,7 @@ StScrollBar StButton#hhandle:active {
   height: 20px;
   color: {{colors.surface_variant.default.hex}};
   -slider-height: 2px;
-  -slider-background-color: rgba(255, 251, 239, 0.3);
+  -slider-background-color: {{colors.surface_container.default.hex}};
   -slider-border-color: {{colors.primary.default.hex}};
   -slider-active-background-color: {{colors.primary.default.hex}};
   -slider-active-border-color: {{colors.primary.default.hex}};
@@ -2113,7 +2116,7 @@ StScrollBar StButton#hhandle:active {
   -slider-handle-border-width: 2px;
   -slider-handle-border-color: {{colors.primary.default.hex}};
   -barlevel-height: 15px;
-  -barlevel-background-color: rgba(255, 251, 239, 0.3);
+  -barlevel-background-color: {{colors.surface_container.default.hex}};
   -barlevel-border-color: transparent;
   -barlevel-active-background-color: {{colors.primary.default.hex}};
   -barlevel-active-border-color: transparent;
@@ -2166,7 +2169,7 @@ StScrollBar StButton#hhandle:active {
 
 .switcher-arrow {
   border-color: rgba(0, 0, 0, 0);
-  color: rgba(255, 251, 239, 0.5);
+  color: {{colors.on_surface_variant.default.hex}};
 }
 
 .switcher-arrow:highlighted {
@@ -2300,7 +2303,7 @@ StScrollBar StButton#hhandle:active {
 }
 
 .app-folder:active {
-  background-color: rgba(255, 251, 239, 0.3);
+  background-color: {{colors.surface_container.default.hex}};
   color: {{colors.primary_fixed.default.hex}};
 }
 
@@ -2308,7 +2311,7 @@ StScrollBar StButton#hhandle:active {
   width: 6px;
   height: 3px;
   border-radius: 2px;
-  background-color: rgba(255, 251, 239, 0.3);
+  background-color: {{colors.surface_container.default.hex}};
   margin-bottom: 0;
 }
 
@@ -2350,7 +2353,7 @@ StWidget.focused .app-grid-running-dot {
 .app-folder-dialog .icon-button, .app-folder-dialog .background-app-item .close-button, .background-app-item .app-folder-dialog .close-button, .app-folder-dialog .message-notification-group .message-collapse-button, .message-notification-group .app-folder-dialog .message-collapse-button, .app-folder-dialog .message .message-header .message-expand-button, .message .message-header .app-folder-dialog .message-expand-button,
 .app-folder-dialog .message .message-header .message-close-button,
 .message .message-header .app-folder-dialog .message-close-button {
-  background-color: rgba(255, 251, 239, 0.06);
+  background-color: {{colors.surface_container.default.hex}};
   color: {{colors.on_surface.default.hex}};
   border: none;
   padding: 0;
@@ -2435,7 +2438,7 @@ StWidget.focused .app-grid-running-dot {
 
 .page-navigation-arrow:insensitive {
   background-color: transparent;
-  color: rgba(255, 251, 239, 0.5);
+  color: {{colors.on_surface_variant.default.hex}};
 }
 
 .page-navigation-arrow:hover {
@@ -2444,7 +2447,7 @@ StWidget.focused .app-grid-running-dot {
 }
 
 .page-navigation-arrow:active {
-  background-color: rgba(255, 251, 239, 0.3);
+  background-color: {{colors.surface_container.default.hex}};
   color: {{colors.primary_fixed.default.hex}};
 }
 
@@ -2606,7 +2609,7 @@ StWidget.focused .app-grid-running-dot {
 }
 
 .calendar .pager-button:active {
-  background-color: rgba(255, 251, 239, 0.3);
+  background-color: {{colors.surface_container.default.hex}};
   box-shadow: none !important;
 }
 
@@ -2632,14 +2635,14 @@ StWidget.focused .app-grid-running-dot {
 
 .calendar .calendar-day:active, .calendar .calendar-day:selected {
   color: {{colors.primary_fixed.default.hex}} !important;
-  background-color: rgba(255, 251, 239, 0.3);
+  background-color: {{colors.surface_container.default.hex}};
   border-color: transparent !important;
   box-shadow: none !important;
   outline: none !important;
 }
 
 .calendar .calendar-day.calendar-weekend {
-  color: rgba(255, 251, 239, 0.5) !important;
+  color: {{colors.on_surface_variant.default.hex}} !important;
 }
 
 .calendar .calendar-day {
@@ -2661,7 +2664,7 @@ StWidget.focused .app-grid-running-dot {
 .calendar .calendar-today {
   font-weight: bold;
   color: {{colors.on_surface.default.hex}} !important;
-  background-color: rgba(255, 251, 239, 0.06);
+  background-color: {{colors.surface_container.default.hex}};
   border: none;
 }
 
@@ -2696,12 +2699,12 @@ StWidget.focused .app-grid-running-dot {
 }
 
 .calendar .calendar-other-month {
-  color: rgba(255, 251, 239, 0.32) !important;
+  color: {{colors.on_surface_variant.default.hex}} !important;
   font-weight: normal;
 }
 
 .calendar .calendar-other-month.calendar-weekend {
-  color: rgba(255, 251, 239, 0.32) !important;
+  color: {{colors.on_surface_variant.default.hex}} !important;
 }
 
 .calendar .calendar-day-heading {
@@ -2721,7 +2724,7 @@ StWidget.focused .app-grid-running-dot {
   padding: 0;
   border-radius: 12px;
   background-color: {{colors.inverse_primary.default.hex}};
-  color: rgba(255, 251, 239, 0.5);
+  color: {{colors.on_surface_variant.default.hex}};
   font-weight: bold;
   font-feature-settings: 'tnum';
   text-align: center;
@@ -2747,13 +2750,13 @@ StWidget.focused .app-grid-running-dot {
 .events-button .events-title {
   font-weight: bold;
   text-shadow: none;
-  color: rgba(255, 251, 239, 0.5);
+  color: {{colors.on_surface_variant.default.hex}};
 }
 
 .events-button .event-time {
   font-feature-settings: 'tnum';
   font-size: 11pt;
-  color: rgba(255, 251, 239, 0.5);
+  color: {{colors.on_surface_variant.default.hex}};
 }
 
 .world-clocks-button .world-clocks-grid {
@@ -2762,7 +2765,7 @@ StWidget.focused .app-grid-running-dot {
 }
 
 .world-clocks-button .world-clocks-header {
-  color: rgba(255, 251, 239, 0.5);
+  color: {{colors.on_surface_variant.default.hex}};
 }
 
 .world-clocks-button .world-clocks-city {
@@ -2788,7 +2791,7 @@ StWidget.focused .app-grid-running-dot {
 .world-clocks-button .world-clocks-timezone {
   font-feature-settings: 'tnum';
   font-size: 11pt;
-  color: rgba(255, 251, 239, 0.5);
+  color: {{colors.on_surface_variant.default.hex}};
 }
 
 .world-clocks-grid,
@@ -2813,7 +2816,7 @@ StWidget.focused .app-grid-running-dot {
 .weather-button .weather-header.location {
   font-weight: normal;
   font-size: 11pt;
-  color: rgba(255, 251, 239, 0.5);
+  color: {{colors.on_surface_variant.default.hex}};
 }
 
 .weather-button .weather-grid {
@@ -2883,7 +2886,7 @@ StWidget.focused .app-grid-running-dot {
 }
 
 #dash .dash-background {
-  background-color: {{colors.surface_container.default.hex}};
+  background-color: {{colors.surface.default.hex}};
   box-shadow: inset 0 0 0 1px {{colors.on_tertiary.default.hex}};
   border: none;
   padding: 4px 3px;
@@ -2941,7 +2944,7 @@ StWidget.focused .app-grid-running-dot {
 #dash .dash-item-container .show-apps:active .overview-icon,
 #dash .dash-item-container .overview-tile:active .overview-icon,
 #dash .dash-item-container .grid-search-result:active .overview-icon {
-  background-color: rgba(255, 251, 239, 0.3);
+  background-color: {{colors.surface_container.default.hex}};
 }
 
 #dash .dash-item-container .show-apps:checked .overview-icon,
@@ -2964,7 +2967,7 @@ StWidget.focused .app-grid-running-dot {
   width: 1px;
   margin-left: 4px;
   margin-right: 4px;
-  background-color: rgba(255, 251, 239, 0.25);
+  background-color: {{colors.surface_container.default.hex}};
 }
 
 #dash .dash-separator,
@@ -2990,6 +2993,7 @@ StWidget.focused .app-grid-running-dot {
   border-radius: 18px;
   border: none;
   box-shadow: inset 0 0.5px rgba(255, 251, 239, 0.1);
+  border: 2px solid {{colors.primary.default.hex}};
 }
 
 .modal-dialog-button:last-child, .modal-dialog-linked-button:last-child {
@@ -3225,6 +3229,7 @@ StWidget.focused .app-grid-running-dot {
   border-radius: 18px;
   border: none;
   box-shadow: inset 0 0.5px rgba(255, 251, 239, 0.1);
+  border: 2px solid {{colors.primary.default.hex}};
 }
 
 .modal-dialog-linked-button:last-child, .modal-dialog-button:last-child {
@@ -3463,7 +3468,7 @@ StWidget.focused .app-grid-running-dot {
 
 .message-list .message-list-placeholder {
   spacing: 12px;
-  color: rgba(255, 251, 239, 0.32);
+  color: {{colors.on_surface_variant.default.hex}};
 }
 
 .message-list .message-list-placeholder > StIcon {
@@ -3543,7 +3548,7 @@ StWidget.focused .app-grid-running-dot {
   margin: 6px;
   margin-bottom: 0;
   spacing: 6px;
-  color: rgba(255, 251, 239, 0.5);
+  color: {{colors.on_surface_variant.default.hex}};
 }
 
 .message .message-header .message-source-icon {
@@ -3563,7 +3568,7 @@ StWidget.focused .app-grid-running-dot {
 
 .message .message-header .message-header-content .event-time {
   padding-bottom: 0.068em;
-  color: rgba(255, 251, 239, 0.5);
+  color: {{colors.on_surface_variant.default.hex}};
 }
 
 .message .message-header .message-header-content .event-time:ltr {
@@ -3598,7 +3603,7 @@ StWidget.focused .app-grid-running-dot {
 .message .message-header .message-expand-button:active, .message .message-header .message-expand-button:active:hover,
 .message .message-header .message-close-button:active,
 .message .message-header .message-close-button:active:hover {
-  background-color: rgba(255, 251, 239, 0.3);
+  background-color: {{colors.surface_container.default.hex}};
 }
 
 .message .message-header .message-expand-button:insensitive,
@@ -3644,7 +3649,7 @@ StWidget.focused .app-grid-running-dot {
   icon-size: 16px;
   min-width: 48px;
   min-height: 48px;
-  color: rgba(255, 251, 239, 0.5);
+  color: {{colors.on_surface_variant.default.hex}};
   background-color: {{colors.on_tertiary.default.hex}};
 }
 
@@ -3661,7 +3666,7 @@ StWidget.focused .app-grid-running-dot {
 }
 
 .url-highlighter {
-  link-color: #81bea3;
+  link-color: {{colors.primary.default.hex}};
 }
 
 .message-media-control {
@@ -3677,7 +3682,7 @@ StWidget.focused .app-grid-running-dot {
 }
 
 .message-media-control:active {
-  background-color: rgba(255, 251, 239, 0.3);
+  background-color: {{colors.surface_container.default.hex}};
 }
 
 .message-media-control:hover, .message-media-control:focus, .message-media-control:active {
@@ -3685,7 +3690,7 @@ StWidget.focused .app-grid-running-dot {
 }
 
 .message-media-control:insensitive {
-  color: rgba(255, 251, 239, 0.5);
+  color: {{colors.on_surface_variant.default.hex}};
 }
 
 .message-media-control StIcon {
@@ -3724,7 +3729,7 @@ StWidget.focused .app-grid-running-dot {
 
 .message-list .message-list-placeholder {
   spacing: 12px;
-  color: rgba(255, 251, 239, 0.32);
+  color: {{colors.on_surface_variant.default.hex}};
 }
 
 .message-list .message-list-placeholder > StIcon {
@@ -3784,7 +3789,7 @@ StWidget.focused .app-grid-running-dot {
   margin: 6px;
   margin-bottom: 0;
   spacing: 6px;
-  color: rgba(255, 251, 239, 0.5);
+  color: {{colors.on_surface_variant.default.hex}};
 }
 
 .message .message-header .message-source-icon {
@@ -3804,7 +3809,7 @@ StWidget.focused .app-grid-running-dot {
 
 .message .message-header .message-header-content .event-time {
   padding-bottom: 0.068em;
-  color: rgba(255, 251, 239, 0.5);
+  color: {{colors.on_surface_variant.default.hex}};
 }
 
 .message .message-header .message-header-content .event-time:ltr {
@@ -3885,7 +3890,7 @@ StWidget.focused .app-grid-running-dot {
   icon-size: 16px;
   min-width: 48px;
   min-height: 48px;
-  color: rgba(255, 251, 239, 0.5);
+  color: {{colors.on_surface_variant.default.hex}};
   background-color: {{colors.on_tertiary.default.hex}};
 }
 
@@ -3902,7 +3907,7 @@ StWidget.focused .app-grid-running-dot {
 }
 
 .url-highlighter {
-  link-color: #81bea3;
+  link-color: {{colors.primary.default.hex}};
 }
 
 .message-media-control {
@@ -3918,7 +3923,7 @@ StWidget.focused .app-grid-running-dot {
 }
 
 .message-media-control:active {
-  background-color: rgba(255, 251, 239, 0.3);
+  background-color: {{colors.surface_container.default.hex}};
 }
 
 .message-media-control:hover, .message-media-control:focus, .message-media-control:active {
@@ -3926,7 +3931,7 @@ StWidget.focused .app-grid-running-dot {
 }
 
 .message-media-control:insensitive {
-  color: rgba(255, 251, 239, 0.5);
+  color: {{colors.on_surface_variant.default.hex}};
 }
 
 .message-media-control StIcon {
@@ -3965,7 +3970,7 @@ StWidget.focused .app-grid-running-dot {
 
 .message-list .message-list-placeholder {
   spacing: 12px;
-  color: rgba(255, 251, 239, 0.32);
+  color: {{colors.on_surface_variant.default.hex}};
 }
 
 .message-list .message-list-placeholder > StIcon {
@@ -4027,7 +4032,7 @@ StWidget.focused .app-grid-running-dot {
 }
 
 .message-notification-group .message-collapse-button:hover {
-  background-color: rgba(255, 251, 239, 0.3);
+  background-color: {{colors.surface_container.default.hex}};
 }
 
 .message-notification-group .message-collapse-button:active {
@@ -4044,7 +4049,7 @@ StWidget.focused .app-grid-running-dot {
   border-radius: 12px;
   padding: 6px;
   margin: 4px;
-  color: rgba(255, 251, 239, 0.5);
+  color: {{colors.on_surface_variant.default.hex}};
   background-color: {{colors.on_secondary.default.hex}};
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.04);
   border: 1px solid {{colors.inverse_primary.default.hex}};
@@ -4064,7 +4069,7 @@ StWidget.focused .app-grid-running-dot {
 }
 
 .popup-menu .message:insensitive {
-  color: rgba(255, 251, 239, 0.5);
+  color: {{colors.on_surface_variant.default.hex}};
   background-color: {{colors.on_secondary.default.hex}};
   box-shadow: none !important;
 }
@@ -4084,7 +4089,7 @@ StWidget.focused .app-grid-running-dot {
 .message .message-header {
   padding: 0 0.409em;
   spacing: 6px;
-  color: rgba(255, 251, 239, 0.5);
+  color: {{colors.on_surface_variant.default.hex}};
 }
 
 .message .message-header .message-source-icon {
@@ -4104,7 +4109,7 @@ StWidget.focused .app-grid-running-dot {
 
 .message .message-header .message-header-content .event-time {
   padding-bottom: 0.068em;
-  color: rgba(255, 251, 239, 0.5);
+  color: {{colors.on_surface_variant.default.hex}};
 }
 
 .message .message-header .message-header-content .event-time:ltr {
@@ -4182,7 +4187,7 @@ StWidget.focused .app-grid-running-dot {
   icon-size: 16px;
   min-width: 48px;
   min-height: 48px;
-  color: rgba(255, 251, 239, 0.5);
+  color: {{colors.on_surface_variant.default.hex}};
   background-color: {{colors.on_tertiary.default.hex}};
 }
 
@@ -4215,7 +4220,7 @@ StWidget.focused .app-grid-running-dot {
 }
 
 .message-media-control:active {
-  background-color: rgba(255, 251, 239, 0.3);
+  background-color: {{colors.surface_container.default.hex}};
 }
 
 .message-media-control:hover, .message-media-control:focus, .message-media-control:active {
@@ -4223,7 +4228,7 @@ StWidget.focused .app-grid-running-dot {
 }
 
 .message-media-control:insensitive {
-  color: rgba(255, 251, 239, 0.5);
+  color: {{colors.on_surface_variant.default.hex}};
 }
 
 .message-media-control StIcon {
@@ -4259,6 +4264,7 @@ StWidget.focused .app-grid-running-dot {
   text-shadow: none;
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.25);
   border-radius: 18px;
+  border: 2px solid {{colors.primary.default.hex}};
 }
 
 .notification-banner:hover, .notification-banner:active {
@@ -4303,7 +4309,7 @@ StWidget.focused .app-grid-running-dot {
 }
 
 .notification-button:active {
-  background-color: rgba(255, 251, 239, 0.3);
+  background-color: {{colors.surface_container.default.hex}};
   color: {{colors.primary_fixed.default.hex}};
 }
 
@@ -4341,7 +4347,7 @@ StWidget.focused .app-grid-running-dot {
   background-color: {{colors.surface.default.hex}};
   text-shadow: none;
   border-radius: 18px;
-  border: 2px solid {{colors.inverse_primary.default.hex}};
+  border: 2px solid {{colors.primary.default.hex}};
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
 }
 
@@ -4378,7 +4384,7 @@ StWidget.focused .app-grid-running-dot {
 }
 
 .notification-button:active {
-  background-color: rgba(255, 251, 239, 0.3);
+  background-color: {{colors.surface_container.default.hex}};
   color: {{colors.primary_fixed.default.hex}};
 }
 
@@ -4751,7 +4757,7 @@ StWidget.focused .app-grid-running-dot {
 }
 
 .device-subtitle {
-  color: rgba(255, 251, 239, 0.5);
+  color: {{colors.on_surface_variant.default.hex}};
 }
 
 .background-apps-quick-toggle {
@@ -5081,7 +5087,7 @@ StWidget.focused .app-grid-running-dot {
 }
 
 .device-subtitle {
-  color: rgba(255, 251, 239, 0.5);
+  color: {{colors.on_surface_variant.default.hex}};
 }
 
 .background-apps-quick-toggle {
@@ -5159,7 +5165,7 @@ StWidget.focused .app-grid-running-dot {
 }
 
 .search-statustext {
-  color: rgba(255, 251, 239, 0.5);
+  color: {{colors.on_surface_variant.default.hex}};
 }
 
 .grid-search-results {
@@ -5255,27 +5261,27 @@ StWidget.focused .app-grid-running-dot {
 }
 
 .screenshot-ui-capture-button:hover .screenshot-ui-capture-button-circle, .screenshot-ui-capture-button:focus .screenshot-ui-capture-button-circle {
-  background-color: #ffe8a3;
+  background-color: {{colors.primary.default.hex}};
 }
 
 .screenshot-ui-capture-button:active .screenshot-ui-capture-button-circle {
-  background-color: #efb300;
+  background-color: {{colors.primary_container.default.hex}};
 }
 
 .screenshot-ui-capture-button:cast .screenshot-ui-capture-button-circle {
-  background-color: #f85552;
+  background-color: {{colors.source_color.default.hex}};
 }
 
 .screenshot-ui-capture-button:cast:hover .screenshot-ui-capture-button-circle, .screenshot-ui-capture-button:cast:focus .screenshot-ui-capture-button-circle {
-  background-color: #f96d6b;
+  background-color: {{colors.error.default.hex}};
 }
 
 .screenshot-ui-capture-button:cast:active .screenshot-ui-capture-button-circle {
-  background-color: #f73330;
+  background-color: {{colors.error_container.default.hex}};
 }
 
 .screenshot-ui-shot-cast-container {
-  background-color: #323b41;
+  background-color: {{colors.surface_container_high.default.hex}};
   border-radius: 18px;
   padding: 3px;
   spacing: 3px;
@@ -5296,11 +5302,11 @@ StWidget.focused .app-grid-running-dot {
 }
 
 .screenshot-ui-shot-cast-button:hover, .screenshot-ui-shot-cast-button:focus {
-  background-color: #3d4850;
+  background-color: {{colors.surface_container_high.default.hex}};
 }
 
 .screenshot-ui-shot-cast-button:active {
-  background-color: rgba(255, 251, 239, 0.3);
+  background-color: {{colors.surface_container.default.hex}};
 }
 
 .screenshot-ui-shot-cast-button:checked {
@@ -5309,7 +5315,7 @@ StWidget.focused .app-grid-running-dot {
 }
 
 .screenshot-ui-shot-cast-button:insensitive {
-  color: rgba(255, 251, 239, 0.5);
+  color: {{colors.on_surface_variant.default.hex}};
 }
 
 .screenshot-ui-shot-cast-button StIcon {
@@ -5597,19 +5603,20 @@ StWidget.focused .app-grid-running-dot {
 }
 
 #dashtodockContainer #dash .dash-background {
-  background-color: rgba(39, 46, 51, 0.85);
+  background-color: {{colors.surface.default.hex}};
+  border: 2px solid {{colors.primary.default.hex}};
 }
 
 #dashtodockContainer .app-well-app-running-dot {
-  background-color: rgba(255, 251, 239, 0.3) !important;
+  background-color: {{colors.surface_container.default.hex}} !important;
 }
 
 #dashtodockContainer StWidget.focused .app-well-app-running-dot {
-  background-color: #f2efdf !important;
+  background-color: {{colors.surface_container_lowest.default.hex}} !important;
 }
 
 #dashtodockContainer:overview #dash .app-well-app-running-dot {
-  background-color: rgba(255, 251, 239, 0.3) !important;
+  background-color: {{colors.surface_container.default.hex}} !important;
 }
 
 #dashtodockContainer:overview #dash StWidget.focused .app-well-app-running-dot {
@@ -5631,7 +5638,7 @@ StWidget.focused .app-grid-running-dot {
 #dashtodockContainer .show-apps:active .overview-icon, #dashtodockContainer .show-apps:checked .overview-icon,
 #dashtodockContainer .app-well-app:active .overview-icon,
 #dashtodockContainer .app-well-app:checked .overview-icon {
-  background-color: rgba(255, 251, 239, 0.3);
+  background-color: {{colors.surface_container.default.hex}};
 }
 
 #dashtodockContainer:overview #dash .show-apps .overview-icon, #dashtodockContainer:overview #dash .app-well-app .overview-icon {
@@ -5643,15 +5650,15 @@ StWidget.focused .app-grid-running-dot {
 }
 
 #dashtodockContainer:overview #dash .show-apps:active .overview-icon, #dashtodockContainer:overview #dash .show-apps:checked .overview-icon, #dashtodockContainer:overview #dash .app-well-app:active .overview-icon, #dashtodockContainer:overview #dash .app-well-app:checked .overview-icon {
-  background-color: rgba(255, 251, 239, 0.3);
+  background-color: {{colors.surface_container.default.hex}};
 }
 
 #dashtodockContainer .app-well-app-running-dot {
-  background-color: rgba(255, 251, 239, 0.3);
+  background-color: {{colors.surface_container.default.hex}};
 }
 
 #dashtodockContainer StWidget.focused .app-well-app-running-dot {
-  background-color: #f2efdf;
+  background-color: {{colors.surface_container_lowest.default.hex}};
 }
 
 #dashtodockContainer.opaque #dash .dash-background {
@@ -5696,7 +5703,7 @@ StWidget.focused .app-grid-running-dot {
 }
 
 #dashtodockPreviewSeparator.popup-separator-menu-item-horizontal {
-  background-color: rgba(255, 251, 239, 0.25);
+  background-color: {{colors.surface_container.default.hex}};
   width: 1px;
   height: auto;
   border-right-width: 1px;
@@ -5720,12 +5727,12 @@ StWidget.focused .app-grid-running-dot {
 
 .openweather-current-databox-values {
   background: none;
-  color: rgba(255, 251, 239, 0.5);
+  color: {{colors.on_surface_variant.default.hex}};
 }
 
 .openweather-current-databox-captions {
   background: none;
-  color: rgba(255, 251, 239, 0.5);
+  color: {{colors.on_surface_variant.default.hex}};
 }
 
 .openweather-forecast-icon, .openweather-forecast-summary {
@@ -5735,7 +5742,7 @@ StWidget.focused .app-grid-running-dot {
 
 .openweather-forecast-day, .openweather-forecast-temperature {
   background: none;
-  color: rgba(255, 251, 239, 0.5);
+  color: {{colors.on_surface_variant.default.hex}};
 }
 
 .openweather-sunrise-icon, .openweather-sunset-icon, .openweather-build-icon {
@@ -5819,7 +5826,7 @@ StWidget.focused .app-grid-running-dot {
 }
 
 .pop-shell-tab-active {
-  background: #dfa000;
+  background: {{colors.primary.default.hex}};
 }
 
 .pop-shell-tab-inactive {
@@ -5863,7 +5870,7 @@ StWidget.focused .app-grid-running-dot {
 #panel.transparent-panel .panel-button:checked,
 #panel.transparent-panel .panel-button:focus {
   color: {{colors.primary_fixed.default.hex}} !important;
-  background-color: rgba(255, 251, 239, 0.3) !important;
+  background-color: {{colors.surface_container.default.hex}} !important;
 }
 
 #panel.light-panel .panel-button:active.clock-display .clock, #panel.light-panel .panel-button:checked.clock-display .clock, #panel.light-panel .panel-button:focus.clock-display .clock,
@@ -5873,7 +5880,7 @@ StWidget.focused .app-grid-running-dot {
 #panel.transparent-panel .panel-button:active.clock-display .clock,
 #panel.transparent-panel .panel-button:checked.clock-display .clock,
 #panel.transparent-panel .panel-button:focus.clock-display .clock {
-  background-color: rgba(255, 251, 239, 0.3) !important;
+  background-color: {{colors.surface_container.default.hex}} !important;
 }
 
 #panel.light-panel .panel-button:hover.clock-display, #panel.light-panel .panel-button:active.clock-display, #panel.light-panel .panel-button:overview.clock-display, #panel.light-panel .panel-button:focus.clock-display, #panel.light-panel .panel-button:checked.clock-display,

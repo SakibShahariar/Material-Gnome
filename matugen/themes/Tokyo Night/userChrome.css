@@ -1,0 +1,71 @@
+/*** Firefox UI Customization ***/
+
+/* ===== GLOBAL COLORS ===== */
+:root {
+  --accent: #7aa2f7;            /* primary_fixed_dim */
+  --accent-dark: #161926;       /* on_primary_fixed */
+  --text-light: #c0caf5;        /* on_surface */
+  --bg-dark: #1a1b26;            /* surface_dim */
+  --hover-transparent: color-mix(in srgb, var(--accent) 20%, transparent);
+}
+
+/* ===== ADDRESS BAR ===== */
+/* Selected text */
+#urlbar-input::selection {
+  background-color: var(--accent) !important;
+  color: var(--accent-dark) !important;
+}
+
+/* Dropdown suggestions */
+.urlbarView-row[selected] {
+  background-color: var(--accent) !important;
+  color: var(--accent-dark) !important;
+}
+.urlbarView-row:hover:not([selected]) {
+  background-color: var(--hover-transparent) !important;
+}
+
+/* ===== TABS ===== */
+.tab-background-active {
+  background: var(--accent) !important;
+}
+.tabbrowser-tab:hover .tab-background {
+  background: rgba(51, 70, 124, 0.3) !important; /* primary_container at 30% opacity */
+}
+
+/* ===== TOOLBAR BUTTONS ===== */
+/* Navigation buttons */
+#back-button:hover, #forward-button:hover,
+#reload-button:hover, #home-button:hover {
+  fill: var(--accent) !important;
+}
+
+/* Extensions button */
+#unified-extensions-button {
+  color: var(--text-light) !important;
+}
+#unified-extensions-button:hover {
+  color: var(--accent) !important;
+}
+
+/* ===== CONTEXT MENUS ===== */
+menupopup {
+  --menuitem-hover-bgcolor: var(--accent) !important;
+  --menu-color: var(--text-light) !important;
+  --menu-background-color: color-mix(in srgb, var(--bg-dark) 85%, transparent) !important;
+  background-color: var(--menu-background-color) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4) !important;
+  padding: 4px !important;
+}
+
+menuitem:hover {
+  background-color: var(--accent) !important;
+  color: var(--accent-dark) !important;
+}
+
+/* ===== SCROLLBARS ===== */
+* {
+  scrollbar-color: var(--accent) var(--bg-dark) !important;
+  scrollbar-width: thin !important;
+}

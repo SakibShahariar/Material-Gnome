@@ -1,0 +1,91 @@
+command_timeout = 10000
+
+format = """
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_status\
+$cmd_duration\
+$line_break\
+$python\
+$nodejs\
+$rust\
+$golang\
+$package\
+$character
+"""
+
+[cmd_duration]
+min_time = 1000
+show_milliseconds = false
+style = "bold {{colors.surface_variant.default.hex}}"
+
+[directory]
+style = "bold {{colors.secondary_container.default.hex}}"
+
+[directory.substitutions]
+"Documents" = "󰈙 "
+"Downloads" = " "
+"Music" = " "
+"Pictures" = " "
+"Videos" = "󰎈 "
+".config" = " "
+
+[git_branch]
+symbol = " "
+style = "bold {{colors.primary.default.hex}}"
+
+[git_status]
+use_git_executable = true
+ignore_submodules = false
+format = "$ahead$modified$untracked$renamed$deleted"
+style = "bold {{colors.error.default.hex}}"  # error
+ahead = "⇡:${count} "
+renamed = "»:${count} "
+deleted = "✘:${count} "
+modified = "!:${count} "
+untracked = "?:${count} "
+
+[git_metrics]
+disabled = true
+
+[python]
+symbol = '🐍'
+style = "bold {{colors.tertiary_fixed_dim.default.hex}}"
+
+[nodejs]
+symbol = ""
+style = "bold {{colors.secondary_fixed_dim.default.hex}}"
+
+[rust]
+symbol = "🦀"
+style = "bold {{colors.error.default.hex}}"
+
+[golang]
+symbol = ""
+style = "bold {{colors.primary.default.hex}}"
+
+[package]
+symbol = "📦"
+style = "bold {{colors.secondary_container.default.hex}}"
+
+[username]
+format = "[$user]($style) "
+style_user = "bold {{colors.primary.default.hex}}"
+show_always = true
+
+[hostname]
+format = "[@$hostname]($style)"
+style = "bold {{colors.outline.default.hex}}"
+ssh_only = true
+
+[time]
+disabled = false
+format = "🕒 %H:%M"
+style = "bold {{colors.on_surface_variant.default.hex}}"
+
+[character]
+success_symbol = "[❯](bold {{colors.primary_container.default.hex}})"
+error_symbol = "[✗](bold {{colors.error.default.hex}})"
+vimcmd_symbol = "[](bold {{colors.tertiary_fixed_dim.default.hex}})"

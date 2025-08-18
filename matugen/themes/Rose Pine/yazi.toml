@@ -1,0 +1,27 @@
+[manager]
+cwd = { fg = "#BCC5EB" }
+
+# Tab
+tab_active = { fg = "#FFB59C", bg = "#FFB59C", bold = true }
+tab_inactive = { fg = "#FF9F9C", bg = "#FFB59C" }
+tab_width = 1
+
+# Find
+find_keyword = { fg = "#F38BA8", bold = true, italic = true, underline = true }
+find_position = { fg = "#F38BA8", bold = true }
+
+# Marker
+marker_copied = { fg = "#82D3E3", bg = "#82D3E3" }
+marker_cut = { fg = "#82D3E3", bg = "#82D3E3" }
+marker_marked = { fg = "#F38BA8", bg = "#F38BA8" }
+marker_selected = { fg = "#F9E2AF", bg = "#F9E2AF" }
+
+# Count
+count_copied = { fg = "#0E1416", bg = "#82D3E3" }
+count_cut = { fg = "#0E1416", bg = "#82D3E3" }
+count_selected = { fg = "#FFB59C", bg = "#F9E2AF" }
+
+# Border
+border_symbol = "│"
+border_style  = { fg = "#BCC5EB" }
+

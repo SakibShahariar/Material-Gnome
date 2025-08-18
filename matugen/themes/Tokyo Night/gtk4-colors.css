@@ -1,0 +1,53 @@
+:root {
+  /* 🌈 Base 16 Color Variables */
+  --color0: #1a1b26;   /* surface */
+  --color1: #2a2b35;   /* inverse_on_surface */
+  --color2: #a9b1d6;   /* on_surface_variant */
+  --color3: #9ece6a;   /* secondary */
+  --color4: #c0caf5;   /* inverse_surface */
+  --color5: #f7768e;   /* error */
+  --color6: #33467c;   /* primary_container */
+  --color7: #c0caf5;   /* on_surface */
+  --color8: #7aa2f7;   /* on_primary_container */
+  --color9: #1a1b26;   /* surface duplicate */
+  --color10: #1e2a47;  /* on_primary */
+  --color11: #3a4756;  /* on_secondary */
+  --color12: #7aa2f7;  /* on_primary_container duplicate */
+  --color13: #7aa2f7;  /* primary */
+  --color14: #1f2335;  /* surface_container */
+  --color15: #c0caf5;  /* on_surface duplicate */
+  --color16: #892b3d;  /* on_error */
+  --color17: #35384d;  /* surface_container_high */
+  --color18: #7aa2f7;  /* surface_tint */
+  --color19: #4b366b;  /* tertiary_container */
+  --color20: #bb9af7;  /* tertiary */
+  --color21: #2a2b3f;  /* on_tertiary */
+  --color22: #35384d;  /* surface_container_highest */
+  --color23: #161828;  /* surface_container_low */
+  --color24: #1a1b26;  /* surface_dim */
+
+  /* RGB Components */
+  --color13-r: 122;
+  --color13-g: 162;
+  --color13-b: 247;
+
+  --color0-r: 26;
+  --color0-g: 27;
+  --color0-b: 38;
+
+  --color2-r: 169;
+  --color2-g: 177;
+  --color2-b: 214;
+
+  --color5-r: 247;
+  --color5-g: 118;
+  --color5-b: 142;
+
+  --color6-r: 51;
+  --color6-g: 70;
+  --color6-b: 124;
+
+  --color18-r: 122;
+  --color18-g: 162;
+  --color18-b: 247;
+}
