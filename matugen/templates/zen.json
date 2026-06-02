@@ -1,0 +1,5 @@
+{
+  "boostName": "matugen-runtime",
+  "primary": "{{ colors.primary.default.hex }}",
+  "background": "{{ colors.surface.default.hex }}"
+}

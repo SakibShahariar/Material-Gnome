@@ -2,7 +2,6 @@ command_timeout = 10000
 
 format = """
 $username\
-$hostname\
 $directory\
 $git_branch\
 $git_status\
@@ -16,13 +15,20 @@ $package\
 $character
 """
 
+# ─────────────────────────────
+# CMD DURATION
+# ─────────────────────────────
 [cmd_duration]
 min_time = 1000
 show_milliseconds = false
-style = "bold {{colors.surface_variant.default.hex}}"
+style = "{{colors.outline.default.hex}}"
 
+# ─────────────────────────────
+# DIRECTORY
+# ─────────────────────────────
 [directory]
-style = "bold {{colors.secondary_container.default.hex}}"
+format = "[$path]($style) "
+style = "bold {{colors.primary.default.hex}}"
 
 [directory.substitutions]
 "Documents" = "󰈙 "
@@ -32,60 +38,67 @@ style = "bold {{colors.secondary_container.default.hex}}"
 "Videos" = "󰎈 "
 ".config" = " "
 
+# ─────────────────────────────
+# GIT BRANCH
+# ─────────────────────────────
 [git_branch]
 symbol = " "
-style = "bold {{colors.primary.default.hex}}"
+style = "bold {{colors.tertiary.default.hex}}"
+format = "[$symbol$branch]($style) "
 
+# ─────────────────────────────
+# GIT STATUS
+# ─────────────────────────────
 [git_status]
 use_git_executable = true
 ignore_submodules = false
-format = "$ahead$modified$untracked$renamed$deleted"
-style = "bold {{colors.error.default.hex}}"  # error
-ahead = "⇡:${count} "
-renamed = "»:${count} "
-deleted = "✘:${count} "
-modified = "!:${count} "
-untracked = "?:${count} "
+format = "([$all_status$ahead_behind]($style)) "
+style = "bold {{colors.on_surface.default.hex}}"
 
-[git_metrics]
-disabled = true
+ahead = "[⇡${count}](bold {{colors.primary.default.hex}}) "
+modified = "[!${count}](bold {{colors.tertiary.default.hex}}) "
+untracked = "[?${count}](bold {{colors.secondary.default.hex}}) "
+renamed = "[»${count}](bold {{colors.secondary_fixed.default.hex}}) "
+deleted = "[✘${count}](bold {{colors.error.default.hex}}) "
 
+# ─────────────────────────────
+# LANGUAGES
+# ─────────────────────────────
 [python]
-symbol = '🐍'
-style = "bold {{colors.tertiary_fixed_dim.default.hex}}"
+symbol = "🐍 "
+style = "bold {{colors.tertiary.default.hex}}"
 
 [nodejs]
-symbol = ""
-style = "bold {{colors.secondary_fixed_dim.default.hex}}"
+symbol = " "
+style = "bold {{colors.secondary.default.hex}}"
 
 [rust]
-symbol = "🦀"
+symbol = "🦀 "
 style = "bold {{colors.error.default.hex}}"
 
 [golang]
-symbol = ""
+symbol = " "
 style = "bold {{colors.primary.default.hex}}"
 
+# ─────────────────────────────
+# PACKAGE
+# ─────────────────────────────
 [package]
-symbol = "📦"
-style = "bold {{colors.secondary_container.default.hex}}"
+symbol = "📦 "
+style = "bold {{colors.secondary.default.hex}}"
 
+# ─────────────────────────────
+# USERNAME
+# ─────────────────────────────
 [username]
 format = "[$user]($style) "
-style_user = "bold {{colors.primary.default.hex}}"
+style_user = "bold {{colors.on_surface_variant.default.hex}}"
 show_always = true
 
-[hostname]
-format = "[@$hostname]($style)"
-style = "bold {{colors.outline.default.hex}}"
-ssh_only = true
-
-[time]
-disabled = false
-format = "🕒 %H:%M"
-style = "bold {{colors.on_surface_variant.default.hex}}"
-
+# ─────────────────────────────
+# CHARACTER
+# ─────────────────────────────
 [character]
-success_symbol = "[❯](bold {{colors.primary_container.default.hex}})"
+success_symbol = "[❯](bold {{colors.primary.default.hex}})"
 error_symbol = "[✗](bold {{colors.error.default.hex}})"
-vimcmd_symbol = "[](bold {{colors.tertiary_fixed_dim.default.hex}})"
+vimcmd_symbol = "[](bold {{colors.tertiary.default.hex}})"

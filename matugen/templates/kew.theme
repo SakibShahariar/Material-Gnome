@@ -1,0 +1,60 @@
+# ============================================
+# KEW - Matugen Clean Theme (No Secondary)
+# ============================================
+
+[theme]
+name=MatugenClean
+author=auto
+
+# Core colors
+accent={{colors.primary.default.hex}}
+text={{colors.on_surface.default.hex}}
+textDim={{colors.on_surface_variant.default.hex}}
+textMuted={{colors.outline.default.hex}}
+
+# General Colors
+logo={{colors.on_surface_variant.default.hex}}
+header={{colors.on_surface_variant.default.hex}}
+footer={{colors.on_surface_variant.default.hex}}
+help={{colors.on_surface.default.hex}}
+link={{colors.primary.default.hex}}
+nowplaying={{colors.primary.default.hex}}
+
+# Playlist View
+playlist.rownum={{colors.primary.default.hex}}
+playlist.title={{colors.primary.default.hex}}
+playlist.playing={{colors.primary.default.hex}}
+
+# Track View
+trackview.title={{colors.primary.default.hex}}
+trackview.artist={{colors.primary_fixed.default.hex}}
+trackview.album={{colors.primary_fixed.default.hex}}
+trackview.year={{colors.outline.default.hex}}
+trackview.time={{colors.outline.default.hex}}
+trackview.visualizer={{colors.primary.default.hex}}
+trackview.lyrics={{colors.on_surface.default.hex}}
+
+# Library View
+library.artist={{colors.on_surface_variant.default.hex}}
+library.album={{colors.on_surface.default.hex}}
+library.track={{colors.on_surface.default.hex}}
+library.enqueued={{colors.primary_fixed_dim.default.hex}}
+library.playing={{colors.primary.default.hex}}
+
+# Search
+search.label={{colors.on_surface_variant.default.hex}}
+search.query={{colors.primary.default.hex}}
+search.result={{colors.on_surface.default.hex}}
+search.enqueued={{colors.primary_fixed_dim.default.hex}}
+search.playing={{colors.primary.default.hex}}
+
+# Progress
+progress.filled={{colors.primary.default.hex}}
+progress.empty={{colors.surface_container.default.hex}}
+progress.elapsed={{colors.surface_container_high.default.hex}}
+
+# Status
+status.info=-1
+status.warning={{colors.error.default.hex}}
+status.error={{colors.error.default.hex}}
+status.success={{colors.primary.default.hex}}

@@ -1,0 +1,55 @@
+# ========= Border =========
+file_panel_border = "{{colors.outline.default.hex}}"
+sidebar_border = "{{colors.surface_container.default.hex}}"
+footer_border = "{{colors.outline.default.hex}}"
+
+# ========= Border Active =========
+file_panel_border_active = "{{colors.primary.default.hex}}"
+sidebar_border_active = "{{colors.primary_container.default.hex}}"
+footer_border_active = "{{colors.secondary.default.hex}}"
+modal_border_active = "{{colors.outline_variant.default.hex}}"
+
+# ========= Background (bg) =========
+full_screen_bg = "{{colors.background.default.hex}}"
+file_panel_bg = "{{colors.surface_container.default.hex}}"
+sidebar_bg = "{{colors.surface_container_low.default.hex}}"
+footer_bg = "{{colors.surface_container_high.default.hex}}"
+modal_bg = "{{colors.surface_container_highest.default.hex}}"
+
+# ========= Foreground (fg) =========
+full_screen_fg = "{{colors.on_surface.default.hex}}"
+file_panel_fg = "{{colors.on_surface.default.hex}}"
+sidebar_fg = "{{colors.on_surface.default.hex}}"
+footer_fg = "{{colors.on_surface.default.hex}}"
+modal_fg = "{{colors.on_surface.default.hex}}"
+
+# ========= Special Colors =========
+cursor = "{{colors.primary.default.hex}}"
+correct = "{{colors.secondary.default.hex}}"
+error = "{{colors.error.default.hex}}"
+hint = "{{colors.tertiary_container.default.hex}}"
+cancel = "{{colors.tertiary_fixed_dim.default.hex}}"
+gradient_color = ["{{colors.primary.default.hex}}", "{{colors.secondary.default.hex}}"]
+
+# ========= File Panel =========
+file_panel_top_directory_icon = "{{colors.secondary.default.hex}}"
+file_panel_top_path = "{{colors.primary.default.hex}}"
+file_panel_item_selected_fg = "{{colors.on_surface.default.hex}}"
+file_panel_item_selected_bg = "{{colors.surface_container.default.hex}}"
+
+# ========= Sidebar =========
+sidebar_title = "{{colors.primary.default.hex}}"
+sidebar_item_selected_fg = "{{colors.on_surface.default.hex}}"
+sidebar_item_selected_bg = "{{colors.surface_container_low.default.hex}}"
+sidebar_divider = "{{colors.outline_variant.default.hex}}"
+
+# ========= Modal =========
+modal_cancel_fg = "{{colors.on_background.default.hex}}"
+modal_cancel_bg = "{{colors.tertiary_fixed_dim.default.hex}}"
+
+modal_confirm_fg = "{{colors.on_background.default.hex}}"
+modal_confirm_bg = "{{colors.secondary.default.hex}}"
+
+# ========= Help Menu =========
+help_menu_hotkey = "{{colors.secondary.default.hex}}"
+help_menu_title = "{{colors.tertiary_container.default.hex}}"

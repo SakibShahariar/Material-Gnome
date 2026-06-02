@@ -13,7 +13,7 @@
 theme[main_bg]=""
 
 # Main text color
-theme[main_fg]="{{colors.on_surface.default.hex}}"
+theme[main_fg]="{{colors.on_background.default.hex}}"
 
 # Title color for boxes
 theme[title]="{{colors.primary.default.hex}}"

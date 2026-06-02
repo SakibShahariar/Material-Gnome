@@ -1,0 +1,3 @@
+active_bg = '{{colors.primary.default.hex}}'
+active_fg = '{{colors.surface.default.hex}}'
+inactive_fg = '{{colors.primary.default.hex}}'

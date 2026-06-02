@@ -1,0 +1,50 @@
+/* 🌌 ABOUT PAGES THEME (WORKS ONLY IN userContent.css) */
+
+@-moz-document url-prefix("about:") {
+
+  :root {
+    --in-content-page-background: {{colors.background.default.hex}} !important;
+    --in-content-page-color: {{colors.on_background.default.hex}} !important;
+
+    --in-content-box-background: {{colors.surface_container.default.hex}} !important;
+    --in-content-box-border-color: transparent !important;
+
+    --in-content-text-color: {{colors.on_background.default.hex}} !important;
+    --in-content-deemphasized-text: {{colors.on_surface_variant.default.hex}} !important;
+
+    --in-content-primary-button-background: {{colors.primary.default.hex}} !important;
+    --in-content-primary-button-text-color: {{colors.on_primary.default.hex}} !important;
+
+    --in-content-button-background: {{colors.surface_container_high.default.hex}} !important;
+    --in-content-button-text-color: {{colors.on_surface.default.hex}} !important;
+
+    --in-content-link-color: {{colors.primary.default.hex}} !important;
+
+    --in-content-textbox-background: {{colors.surface_container_low.default.hex}} !important;
+    --in-content-textbox-color: {{colors.on_surface.default.hex}} !important;
+
+    --in-content-focus-outline-color: {{colors.primary.default.hex}} !important;
+  }
+
+  body {
+    background-color: {{colors.background.default.hex}} !important;
+    color: {{colors.on_background.default.hex}} !important;
+  }
+
+  .card,
+  .addon,
+  .container {
+    background: {{colors.surface_container.default.hex}} !important;
+    border-radius: 12px !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  button:hover {
+    background-color: {{colors.surface_container_high.default.hex}} !important;
+  }
+
+  * {
+    scrollbar-color: {{colors.primary.default.hex}} {{colors.surface_container.default.hex}};
+  }
+}

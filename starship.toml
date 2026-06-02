@@ -1,0 +1,104 @@
+command_timeout = 10000
+
+format = """
+$username\
+$directory\
+$git_branch\
+$git_status\
+$cmd_duration\
+$line_break\
+$python\
+$nodejs\
+$rust\
+$golang\
+$package\
+$character
+"""
+
+# ─────────────────────────────
+# CMD DURATION
+# ─────────────────────────────
+[cmd_duration]
+min_time = 1000
+show_milliseconds = false
+style = "#8e9383"
+
+# ─────────────────────────────
+# DIRECTORY
+# ─────────────────────────────
+[directory]
+format = "[$path]($style) "
+style = "bold #b0d27b"
+
+[directory.substitutions]
+"Documents" = "󰈙 "
+"Downloads" = " "
+"Music" = " "
+"Pictures" = " "
+"Videos" = "󰎈 "
+".config" = " "
+
+# ─────────────────────────────
+# GIT BRANCH
+# ─────────────────────────────
+[git_branch]
+symbol = " "
+style = "bold #faaeec"
+format = "[$symbol$branch]($style) "
+
+# ─────────────────────────────
+# GIT STATUS
+# ─────────────────────────────
+[git_status]
+use_git_executable = true
+ignore_submodules = false
+format = "([$all_status$ahead_behind]($style)) "
+style = "bold #e3e3d9"
+
+ahead = "[⇡${count}](bold #b0d27b) "
+modified = "[!${count}](bold #faaeec) "
+untracked = "[?${count}](bold #bdcca2) "
+renamed = "[»${count}](bold #d9e8bd) "
+deleted = "[✘${count}](bold #ffb4ab) "
+
+# ─────────────────────────────
+# LANGUAGES
+# ─────────────────────────────
+[python]
+symbol = "🐍 "
+style = "bold #faaeec"
+
+[nodejs]
+symbol = " "
+style = "bold #bdcca2"
+
+[rust]
+symbol = "🦀 "
+style = "bold #ffb4ab"
+
+[golang]
+symbol = " "
+style = "bold #b0d27b"
+
+# ─────────────────────────────
+# PACKAGE
+# ─────────────────────────────
+[package]
+symbol = "📦 "
+style = "bold #bdcca2"
+
+# ─────────────────────────────
+# USERNAME
+# ─────────────────────────────
+[username]
+format = "[$user]($style) "
+style_user = "bold #c4c8b7"
+show_always = true
+
+# ─────────────────────────────
+# CHARACTER
+# ─────────────────────────────
+[character]
+success_symbol = "[❯](bold #b0d27b)"
+error_symbol = "[✗](bold #ffb4ab)"
+vimcmd_symbol = "[](bold #faaeec)"

@@ -9,17 +9,26 @@ alias nano='micro'                     # Replace nano calls with micro
 # ======================
 # 📁 PATH CONFIGURATION
 # ======================
-set -l base_paths ~/Scripts /usr/bin /usr/local/bin /home/sakib/.local/bin /home/sakib/.cargo/bin /usr/local/sbin ~/sbin
-set -l go_paths (go env GOPATH)/bin
-set -l custom_paths /home/sakib/programms/hellwal /home/sakib/.npm-global/bin ~/.config/rofi/scripts
+fish_add_path ~/Scripts
+fish_add_path /usr/bin
+fish_add_path /usr/local/bin
+fish_add_path /home/sakib/.local/bin
+fish_add_path /home/sakib/.cargo/bin
+fish_add_path /usr/local/sbin
+fish_add_path ~/sbin
+fish_add_path /home/sakib/programms/hellwal
+fish_add_path /home/sakib/.npm-global/bin
+fish_add_path ~/.config/rofi/scripts
 
-# Deduplicate and export
-set -gx PATH (string match -r -v '^$' (string join \n $base_paths $go_paths $custom_paths | sort -u))
+# Only add Go path if Go exists
+if type -q go
+    fish_add_path (go env GOPATH)/bin
+end
 
 # ======================
 # 🎛️ QT/THEME SETTINGS
 # ======================
-set -gx QT_SCALE_FACTOR 1.0
+set -gx QT_SCALE_FACTOR 0.80
 set -gx QT_QPA_PLATFORM wayland
 set -gx QT_QPA_PLATFORMTHEME qt5ct
 set -gx QT_QPA_PLATFORMTHEME_QT6 qt6ct
@@ -38,10 +47,9 @@ bind \cf 'fzf_files'
 # ======================
 # 🛠️ SYSTEM ALIASES
 # ======================
-alias sudo="doas"
+
 alias in='doas dnf install'
 alias re='doas dnf remove'
-alias remove="doas dnf autoremove"
 alias grub_refresh="doas grub2-mkconfig -o /boot/grub2/grub.cfg"
 alias grub_edit="doas micro /etc/default/grub"
 
@@ -51,7 +59,7 @@ alias starwars="telnet towel.blinkenlights.nl"
 # ======================
 # 📁 FILE MANAGEMENT
 # ======================
-alias ls='lsd -a $argv'
+# alias ls='lsd -a $argv'
 alias yy="yazi"
 alias yys="doas yazi"
 alias disk="dysk"
@@ -72,7 +80,7 @@ alias dotgit="git --git-dir=$HOME/.dotfiles_repo/ --work-tree=$HOME"
 # 🎮 ENTERTAINMENT
 # ======================
 alias anime="fastanime --icons --fzf --preview anilist"
-alias clock="tty-clock -c -C 2"
+alias clock="clock-rs"
 alias ask="lumo"
 
 # ======================
@@ -87,26 +95,42 @@ alias mm="matugen.fish"
 # 🧰 UTILITIES
 # ======================
 alias ff="fastfetch"
+alias kotofetch="distrobox enter arch -- kotofetch"
+
+# ======================
+# 📦 DISTROBOX 2.x+ PATH & HELPERS
+# ======================
+# Make sure the new Distrobox binary in /usr/local/sbin is used
+set -U fish_user_paths /usr/local/sbin $fish_user_paths
+
+# Helper function to launch GUI apps from 'arch' Distrobox container
+function dbx-app
+    if test (count $argv) -eq 0
+        echo "Usage: dbx-app <app> [additional args]"
+        return 1
+    end
+    set app $argv[1]
+    set args $argv[2..-1]
+    distrobox-enter --name arch --bind /run/media:/run/media --gui $app $args
+end
+
+# Example alias for Media Writer
+alias mediawriter='dbx-app mediawriter'
 
 # ======================
 # ✨ FUNCTIONS
 # ======================
-# Smart sudo that uses micro instead of nano
-function sudo
-    if test $argv[1] = 'nano'
-        command sudo micro $argv[2..-1]
-    else
-        command sudo $argv
-    end
-end
+# Smart sudo that uses doas and replaces nano with micro
+
 
 # Typewriter effect for text
 function typewrite
-    for arg in $argv
-        for i in (seq (string length $arg))
-            echo -n (string sub -s $i -l 1 $arg)
-            sleep 0.01
-        end
+    # Join arguments with spaces to form a single string
+    set full_text (string join ' ' $argv)
+    # Print character by character
+    for char in (string split '' -- $full_text)
+        echo -n $char
+        sleep 0.01
     end
     echo ""
 end
@@ -129,9 +153,20 @@ function fzf_files
     end
 end
 
+# sudo → doas
+function sudo
+    doas $argv
+end
+
 # ======================
 # 🖥️ INTERACTIVE SESSION
 # ======================
 if status is-interactive
     fastfetch --config ~/.config/fastfetch/pre.jsonc
 end
+
+# uv
+fish_add_path "/home/sakib/.local/bin"
+
+# opencode
+fish_add_path /home/sakib/.opencode/bin

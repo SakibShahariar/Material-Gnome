@@ -1,598 +1,580 @@
 #!/usr/bin/env python3
 """
-Dual Color Picker v3.1
-- Fixed alpha transparency in contrast calculations
-- Precision decimal contrast ratings
-- Logarithmic scaling for high contrast ratios
-- Partial dot filling for visual accuracy
-- Enhanced WCAG compliance descriptions
-- MODERN UI/UX ENHANCEMENTS
+Dual Color Picker v4.0 - Modern Libadwaita Edition
 """
 
 import gi
 import cairo
 import math
+import sys
+
 gi.require_version("Gtk", "4.0")
 gi.require_version("Gdk", "4.0")
-from gi.repository import Gtk, Gdk, GLib
 
-class DualColorPicker(Gtk.Application):
+try:
+    gi.require_version("Adw", "1")
+    from gi.repository import Gtk, Gdk, GLib, Adw
+    HAS_ADWAITA = True
+    print("Using Libadwaita")
+except (ValueError, ImportError):
+    from gi.repository import Gtk, Gdk, GLib
+    HAS_ADWAITA = False
+    print("Using pure GTK4")
+
+class DualColorPicker:
     def __init__(self):
-        super().__init__(application_id='com.example.DualColorPicker.v3_2_modern')
         self.text_color = Gdk.RGBA()
         self.text_color.parse("rgb(0,0,0)")
         self.bg_color = Gdk.RGBA()
         self.bg_color.parse("rgb(255,255,255)")
         self.updating = False
+        self.debounce_timeout = None
+        
+        if HAS_ADWAITA:
+            self.app = Adw.Application(application_id='com.example.DualColorPicker.v4')
+        else:
+            self.app = Gtk.Application(application_id='com.example.DualColorPicker.v4')
+        
+        self.app.connect('activate', self.on_activate)
+        print("Application created")
 
-    def do_activate(self):
-        self.win = Gtk.ApplicationWindow(application=self, title="Dual Color Picker v3.2 (Modern)")
-        self.win.set_default_size(800, 600)
-        self.win.set_resizable(True)
+    def on_activate(self, app):
+        print("Building window...")
+        
+        if hasattr(self, 'win') and self.win:
+            self.win.present()
+            return
+        
+        if HAS_ADWAITA:
+            self.win = Adw.ApplicationWindow(application=app)
+        else:
+            self.win = Gtk.ApplicationWindow(application=app)
+            
+        self.win.set_default_size(900, 600)
+        self.win.set_title("Dual Color Picker v4.0")
 
-        # Apply global CSS
-        css_provider = Gtk.CssProvider()
-        css_provider.load_from_data(b"""
-            /* Global Styling */
-            window {
-                background-color: @theme_bg_color;
-                font-family: sans-serif; /* Use system default modern sans-serif */
-            }
+        if HAS_ADWAITA:
+            toolbar_view = Adw.ToolbarView()
+            self.win.set_content(toolbar_view)
+            
+            header = Adw.HeaderBar()
+            header.set_title_widget(Adw.WindowTitle(title="Dual Color Picker", subtitle="v4.0"))
+            toolbar_view.add_top_bar(header)
 
-            .main-container {
-                padding: 24px;
-            }
-
-            .color-panel-box {
-                background-color: @card_bg_color;
-                border-radius: 12px; /* Rounded corners for panels */
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Subtle shadow */
-                padding: 24px;
-                min-width: 320px;
-                flex-grow: 1; /* Allow panels to grow */
-                flex-shrink: 1;
-            }
-            .panel-title {
-                font-size: 1.4em;
-                font-weight: bold;
-                margin-bottom: 18px;
-                color: @theme_text_color;
-            }
-
-            /* Color Preview */
-            .color-preview {
-                min-height: 80px;
-                border-radius: 8px; /* Rounded corners for previews */
-                margin-bottom: 24px;
-                border: 1px solid rgba(0,0,0,0.1); /* Subtle border for definition */
-            }
-
-            /* Input Fields */
-            .format-grid {
-                margin-top: 12px;
-                margin-bottom: 8px;
-            }
-            .format-label {
-                font-weight: bold;
-                color: @theme_text_color;
-                opacity: 0.8;
-            }
-            entry {
-                min-height: 38px;
-                border-radius: 6px;
-                border: 1px solid @borders;
-                background-color: @theme_base_color;
-                padding: 0 12px;
-                transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-            }
-            entry:focus {
-                border-color: @theme_selected_bg_color;
-                box-shadow: 0 0 0 2px alpha(@theme_selected_bg_color, 0.4);
-            }
-
-            /* Combined Preview */
-            .combined-preview-box {
-                background-color: @card_bg_color;
-                border-radius: 12px;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-                padding: 24px;
-                margin: 24px 0; /* Adjusted margin */
-                width: 100%; /* Take full width */
-                min-height: 120px;
-            }
-            .combined-preview-drawing {
-                border-radius: 8px; /* Rounded corners for drawing area */
-                min-height: 90px;
-                border: 1px solid rgba(0,0,0,0.1);
-            }
-
-
-            /* Contrast Rating */
-            .contrast-rating-box {
-                background-color: @card_bg_color;
-                border-radius: 12px;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-                padding: 24px;
-                margin-top: 24px;
-            }
-            .contrast-title {
-                font-size: 1.2em;
-                font-weight: bold;
-                margin-bottom: 12px;
-                color: @theme_text_color;
-            }
-            .rating-dots-box {
-                margin-bottom: 12px;
-            }
-            .rating-label {
-                font-weight: bold;
-                font-size: 1.1em;
-                color: @theme_text_color;
-                margin-bottom: 6px;
-            }
-            .contrast-ratio-label {
-                font-size: 1em;
-                color: @theme_text_color;
-                opacity: 0.9;
-                margin-bottom: 8px;
-            }
-            .wcag-label {
-                font-size: 0.9em;
-                color: @theme_text_color;
-                opacity: 0.7;
-                line-height: 1.4;
-            }
-
-            /* Separator */
-            .panel-separator {
-                margin: 0 12px; /* Add some space around separator */
-            }
-        """)
-        Gtk.StyleContext.add_provider_for_display(
-            Gdk.Display.get_default(),
-            css_provider,
-            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
-        )
+            self.toast_overlay = Adw.ToastOverlay()
+            toolbar_view.set_content(self.toast_overlay)
+        else:
+            main_vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
+            self.win.set_child(main_vbox)
+            header = Gtk.HeaderBar()
+            header.set_title_widget(Gtk.Label(label="Dual Color Picker v4.0"))
+            main_vbox.append(header)
+            self.toast_overlay = Gtk.Box()
+            main_vbox.append(self.toast_overlay)
 
         scrolled = Gtk.ScrolledWindow()
         scrolled.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
-        self.win.set_child(scrolled)
+        
+        if HAS_ADWAITA:
+            self.toast_overlay.set_child(scrolled)
+        else:
+            self.toast_overlay.append(scrolled)
 
-        main_container = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=24)
-        main_container.set_css_classes(["main-container"])
-        scrolled.set_child(main_container)
+        if HAS_ADWAITA:
+            clamp = Adw.Clamp()
+            clamp.set_maximum_size(1200)
+            clamp.set_margin_top(24)
+            clamp.set_margin_bottom(24)
+            clamp.set_margin_start(12)
+            clamp.set_margin_end(12)
+            scrolled.set_child(clamp)
+            main_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=24)
+            clamp.set_child(main_box)
+        else:
+            main_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=24)
+            main_box.set_margin_top(24)
+            main_box.set_margin_bottom(24)
+            main_box.set_margin_start(24)
+            main_box.set_margin_end(24)
+            scrolled.set_child(main_box)
 
-        self.main_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=24)
-        main_container.append(self.main_box)
+        panels_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=12)
+        panels_box.set_homogeneous(True)
+        main_box.append(panels_box)
 
-        self.text_panel_box, self.text_preview = self.create_color_panel("Text Color", self.text_color, "text")
-        self.main_box.append(self.text_panel_box)
+        self.text_panel = self.create_color_panel("Text Color", self.text_color, "text")
+        panels_box.append(self.text_panel)
 
-        separator = Gtk.Separator(orientation=Gtk.Orientation.VERTICAL)
-        separator.set_css_classes(["panel-separator"])
-        self.main_box.append(separator)
+        swap_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        swap_box.set_valign(Gtk.Align.CENTER)
+        swap_button = Gtk.Button()
+        swap_button.set_icon_name("object-flip-horizontal-symbolic")
+        swap_button.set_tooltip_text("Swap Colors")
+        swap_button.add_css_class("circular")
+        swap_button.connect("clicked", self.on_swap_colors)
+        swap_box.append(swap_button)
+        panels_box.append(swap_box)
 
-        self.bg_panel_box, self.bg_preview = self.create_color_panel("Background Color", self.bg_color, "bg")
-        self.main_box.append(self.bg_panel_box)
+        self.bg_panel = self.create_color_panel("Background Color", self.bg_color, "bg")
+        panels_box.append(self.bg_panel)
 
-        self.create_preview_box(main_container)
-        self.create_contrast_rating_box(main_container)
+        self.create_preview_section(main_box)
+        self.create_contrast_section(main_box)
+        self.update_all_displays()
+        
+        controller = Gtk.EventControllerKey()
+        controller.connect("key-pressed", self.on_key_pressed)
+        self.win.add_controller(controller)
 
-        self.update_displays("text")
-        self.update_displays("bg")
-        self.update_contrast_rating()
-
+        print("Presenting window...")
         self.win.present()
+        print("Window shown!")
 
-    def blend_with_background(self, foreground, background):
-        """Blend semi-transparent colors with their background"""
-        if foreground.alpha >= 1.0:
-            return foreground
+    def on_key_pressed(self, controller, keyval, keycode, state):
+        if keyval == Gdk.KEY_Escape:
+            self.win.close()
+            return True
+        return False
 
-        result = Gdk.RGBA()
-        alpha = foreground.alpha
-        result.red = foreground.red * alpha + background.red * (1 - alpha)
-        result.green = foreground.green * alpha + background.green * (1 - alpha)
-        result.blue = foreground.blue * alpha + background.blue * (1 - alpha)
-        result.alpha = 1.0  # Result is now effectively opaque
-        return result
+    def create_color_panel(self, title, color, prefix):
+        if HAS_ADWAITA:
+            group = Adw.PreferencesGroup()
+            group.set_title(title)
+            group.set_margin_start(12)
+            group.set_margin_end(12)
+        else:
+            group = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=12)
+            title_label = Gtk.Label(label=title)
+            title_label.add_css_class("title-2")
+            title_label.set_halign(Gtk.Align.START)
+            group.append(title_label)
 
-    def create_contrast_rating_box(self, parent):
-        contrast_box_container = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=12)
-        contrast_box_container.set_css_classes(["contrast-rating-box"])
-        parent.append(contrast_box_container)
+        preview_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=12)
+        preview_box.set_margin_top(12)
+        preview_box.set_margin_bottom(12)
+        preview_box.set_margin_start(12)
+        preview_box.set_margin_end(12)
 
-        title = Gtk.Label(label="Contrast Rating (WCAG 2.1)")
-        title.set_css_classes(["contrast-title"])
-        title.set_halign(Gtk.Align.CENTER)
-        contrast_box_container.append(title)
+        dialog = Gtk.ColorDialog(title=f"Select {title}")
+        color_button = Gtk.ColorDialogButton(dialog=dialog)
+        color_button.set_rgba(color)
+        color_button.set_valign(Gtk.Align.CENTER)
+        color_button.connect("notify::rgba", self.on_color_button_changed, prefix)
+        preview_box.append(color_button)
 
-        center_box = Gtk.CenterBox()
-        contrast_box_container.append(center_box)
+        if HAS_ADWAITA:
+            group.add(preview_box)
+        else:
+            group.append(preview_box)
 
-        self.rating_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=4)
-        self.rating_box.set_css_classes(["rating-dots-box"])
-        center_box.set_center_widget(self.rating_box)
+        setattr(self, f"{prefix}_color_button", color_button)
 
+        formats = [
+            ("HEX", "hex"),
+            ("HEX+A", "hex_alpha"),
+            ("RGB", "rgb"),
+            ("RGBA", "rgba")
+        ]
+
+        for label, prop in formats:
+            if HAS_ADWAITA:
+                row = Adw.EntryRow()
+                row.set_title(label)
+                row.set_show_apply_button(False)
+                entry = row
+                entry.connect("changed", self.on_entry_changed, prefix, prop)
+                
+                copy_btn = Gtk.Button()
+                copy_btn.set_icon_name("edit-copy-symbolic")
+                copy_btn.set_valign(Gtk.Align.CENTER)
+                copy_btn.set_tooltip_text(f"Copy {label}")
+                copy_btn.add_css_class("flat")
+                copy_btn.connect("clicked", self.on_copy_clicked, entry)
+                row.add_suffix(copy_btn)
+                group.add(row)
+            else:
+                row_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=12)
+                row_label = Gtk.Label(label=label)
+                row_label.set_width_chars(8)
+                row_label.set_xalign(0)
+                row_box.append(row_label)
+                
+                entry = Gtk.Entry()
+                entry.set_hexpand(True)
+                entry.connect("changed", self.on_entry_changed, prefix, prop)
+                row_box.append(entry)
+                
+                copy_btn = Gtk.Button()
+                copy_btn.set_icon_name("edit-copy-symbolic")
+                copy_btn.set_tooltip_text(f"Copy {label}")
+                copy_btn.connect("clicked", self.on_copy_clicked, entry)
+                row_box.append(copy_btn)
+                group.append(row_box)
+            
+            setattr(self, f"{prefix}_{prop}_entry", entry)
+
+        return group
+
+    def on_color_button_changed(self, color_button, pspec, prefix):
+        new_color = color_button.get_rgba()
+        old_color = getattr(self, f"{prefix}_color")
+        if new_color.to_string() != old_color.to_string():
+            setattr(self, f"{prefix}_color", new_color)
+            self.update_all_displays()
+
+    def on_copy_clicked(self, button, entry):
+        text = entry.get_text()
+            
+        clipboard = Gdk.Display.get_default().get_clipboard()
+        clipboard.set(text)
+        
+        if HAS_ADWAITA:
+            toast = Adw.Toast(title=f"Copied: {text}")
+            toast.set_timeout(2)
+            self.toast_overlay.add_toast(toast)
+
+    def on_entry_changed(self, entry, prefix, format_type):
+        if self.updating:
+            return
+
+        if self.debounce_timeout:
+            GLib.source_remove(self.debounce_timeout)
+
+        self.debounce_timeout = GLib.timeout_add(300, self.update_from_entry, entry, prefix, format_type)
+
+    def update_from_entry(self, entry, prefix, format_type):
+        self.debounce_timeout = None
+        text = entry.get_text().strip()
+        color = getattr(self, f"{prefix}_color")
+
+        try:
+            if format_type == "hex":
+                text = text.lstrip('#')
+                if len(text) == 6:
+                    color.red = int(text[0:2], 16) / 255
+                    color.green = int(text[2:4], 16) / 255
+                    color.blue = int(text[4:6], 16) / 255
+                    self.update_all_displays()
+            elif format_type == "hex_alpha":
+                text = text.lstrip('#')
+                if len(text) == 8:
+                    color.red = int(text[0:2], 16) / 255
+                    color.green = int(text[2:4], 16) / 255
+                    color.blue = int(text[4:6], 16) / 255
+                    color.alpha = int(text[6:8], 16) / 255
+                    self.update_all_displays()
+            elif format_type == "rgb":
+                parts = [int(p.strip()) for p in text.split(",")]
+                if len(parts) == 3:
+                    color.red = max(0, min(255, parts[0])) / 255
+                    color.green = max(0, min(255, parts[1])) / 255
+                    color.blue = max(0, min(255, parts[2])) / 255
+                    self.update_all_displays()
+            elif format_type == "rgba":
+                parts = text.split(",")
+                if len(parts) == 4:
+                    color.red = max(0, min(255, int(parts[0].strip()))) / 255
+                    color.green = max(0, min(255, int(parts[1].strip()))) / 255
+                    color.blue = max(0, min(255, int(parts[2].strip()))) / 255
+                    color.alpha = max(0.0, min(1.0, float(parts[3].strip())))
+                    self.update_all_displays()
+        except (ValueError, IndexError):
+            pass
+
+        return False
+
+    def on_swap_colors(self, button):
+        tr, tg, tb, ta = self.text_color.red, self.text_color.green, self.text_color.blue, self.text_color.alpha
+        br, bg, bb, ba = self.bg_color.red, self.bg_color.green, self.bg_color.blue, self.bg_color.alpha
+        self.text_color.red, self.text_color.green, self.text_color.blue, self.text_color.alpha = br, bg, bb, ba
+        self.bg_color.red, self.bg_color.green, self.bg_color.blue, self.bg_color.alpha = tr, tg, tb, ta
+        self.update_all_displays()
+        
+        if HAS_ADWAITA:
+            toast = Adw.Toast(title="Colors swapped")
+            toast.set_timeout(1)
+            self.toast_overlay.add_toast(toast)
+
+    def create_preview_section(self, parent):
+        if HAS_ADWAITA:
+            group = Adw.PreferencesGroup()
+            group.set_title("Preview")
+            group.set_margin_start(12)
+            group.set_margin_end(12)
+        else:
+            group = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=12)
+            title_label = Gtk.Label(label="Preview")
+            title_label.add_css_class("title-2")
+            title_label.set_halign(Gtk.Align.START)
+            group.append(title_label)
+
+        preview_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        preview_box.set_margin_top(12)
+        preview_box.set_margin_bottom(12)
+        preview_box.set_margin_start(12)
+        preview_box.set_margin_end(12)
+
+        self.combined_preview = Gtk.DrawingArea()
+        self.combined_preview.set_size_request(-1, 120)
+        self.combined_preview.set_draw_func(self.draw_combined_preview, None)
+        self.combined_preview.add_css_class("card")
+        preview_box.append(self.combined_preview)
+
+        if HAS_ADWAITA:
+            group.add(preview_box)
+        else:
+            group.append(preview_box)
+        parent.append(group)
+
+    def create_contrast_section(self, parent):
+        if HAS_ADWAITA:
+            group = Adw.PreferencesGroup()
+            group.set_title("Contrast Rating (WCAG 2.1)")
+            group.set_margin_start(12)
+            group.set_margin_end(12)
+        else:
+            group = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=12)
+            title_label = Gtk.Label(label="Contrast Rating (WCAG 2.1)")
+            title_label.add_css_class("title-2")
+            title_label.set_halign(Gtk.Align.START)
+            group.append(title_label)
+
+        contrast_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=16)
+        contrast_box.set_margin_top(12)
+        contrast_box.set_margin_bottom(12)
+        contrast_box.set_margin_start(12)
+        contrast_box.set_margin_end(12)
+
+        dots_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=4)
+        dots_box.set_halign(Gtk.Align.CENTER)
         self.rating_dots = []
         for i in range(10):
             dot = Gtk.DrawingArea()
-            dot.set_size_request(24, 24)
-            dot.set_draw_func(self.draw_rating_dot, i+1)
+            dot.set_size_request(28, 28)
+            dot.set_draw_func(self.draw_rating_dot, i + 1)
             self.rating_dots.append(dot)
-            self.rating_box.append(dot)
+            dots_box.append(dot)
+        contrast_box.append(dots_box)
 
         self.rating_label = Gtk.Label()
-        self.rating_label.set_css_classes(["rating-label"])
+        self.rating_label.set_markup("<big><b>Rating: Excellent (10/10)</b></big>")
         self.rating_label.set_halign(Gtk.Align.CENTER)
-        contrast_box_container.append(self.rating_label)
+        contrast_box.append(self.rating_label)
 
         self.contrast_ratio_label = Gtk.Label()
-        self.contrast_ratio_label.set_css_classes(["contrast-ratio-label"])
+        self.contrast_ratio_label.set_markup("Contrast Ratio: <b>21.00:1</b>")
         self.contrast_ratio_label.set_halign(Gtk.Align.CENTER)
-        contrast_box_container.append(self.contrast_ratio_label)
+        contrast_box.append(self.contrast_ratio_label)
 
         self.wcag_label = Gtk.Label()
-        self.wcag_label.set_css_classes(["wcag-label"])
         self.wcag_label.set_wrap(True)
         self.wcag_label.set_halign(Gtk.Align.CENTER)
-        contrast_box_container.append(self.wcag_label)
+        self.wcag_label.set_justify(Gtk.Justification.CENTER)
+        self.wcag_label.add_css_class("dim-label")
+        contrast_box.append(self.wcag_label)
 
-    def draw_rating_dot(self, area, cr, width, height, rating_level):
+        if HAS_ADWAITA:
+            group.add(contrast_box)
+        else:
+            group.append(contrast_box)
+        parent.append(group)
+
+
+
+    def draw_combined_preview(self, area, cr, width, height, data):
+        checker_size = 10
+        for i in range(math.ceil(width / checker_size)):
+            for j in range(math.ceil(height / checker_size)):
+                if (i + j) % 2 == 0:
+                    cr.set_source_rgb(0.9, 0.9, 0.9)
+                else:
+                    cr.set_source_rgb(1.0, 1.0, 1.0)
+                cr.rectangle(i * checker_size, j * checker_size, checker_size, checker_size)
+                cr.fill()
+
+        Gdk.cairo_set_source_rgba(cr, self.bg_color)
+        cr.rectangle(0, 0, width, height)
+        cr.fill()
+
+        Gdk.cairo_set_source_rgba(cr, self.text_color)
+        cr.select_font_face("Sans", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+
+        texts = [
+            ("Display Title", 24, cairo.FONT_WEIGHT_BOLD),
+            ("Heading Text", 18, cairo.FONT_WEIGHT_BOLD),
+            ("Body text for reading", 14, cairo.FONT_WEIGHT_NORMAL)
+        ]
+
+        y = height / 4
+        for text, size, weight in texts:
+            cr.select_font_face("Sans", cairo.FONT_SLANT_NORMAL, weight)
+            cr.set_font_size(size)
+            extents = cr.text_extents(text)
+            x = (width - extents.width) / 2
+            cr.move_to(x, y)
+            cr.show_text(text)
+            y += size + 12
+
+    def draw_rating_dot(self, area, cr, width, height, level):
         ratio = self.calculate_contrast_ratio()
         if ratio is None:
             return
 
         rating = self.contrast_ratio_to_rating(ratio)
-        dot_diameter = min(width, height) - 4
-        dot_radius = dot_diameter / 2
-        x = (width - dot_diameter) / 2
-        y = (height - dot_diameter) / 2
+        radius = min(width, height) / 2 - 2
+        cx, cy = width / 2, height / 2
 
-        # Draw outer ring
-        cr.set_source_rgba(0.7, 0.7, 0.7, 0.7) # Lighter, semi-transparent gray
-        cr.arc(x + dot_radius, y + dot_radius, dot_radius, 0, 2 * math.pi)
+        cr.set_source_rgba(0.5, 0.5, 0.5, 0.3)
+        cr.arc(cx, cy, radius, 0, 2 * math.pi)
         cr.set_line_width(1.5)
         cr.stroke()
 
-        # Fill calculation for partial dots
-        if rating_level <= math.floor(rating):
-            fill_level = 1.0
-        elif rating_level <= rating:
-            fill_level = rating - math.floor(rating)
+        if level <= math.floor(rating):
+            fill = 1.0
+        elif level <= rating:
+            fill = rating - math.floor(rating)
         else:
-            fill_level = 0.0
+            fill = 0.0
 
-        if fill_level > 0:
-            # Color based on rating level (slightly adjusted colors for modern feel)
+        if fill > 0:
             if rating >= 9:
-                cr.set_source_rgb(0.1, 0.55, 0.1)  # Darker, richer green for very high scores
-            elif rating >= 8:
-                cr.set_source_rgb(0.2, 0.7, 0.2)   # Good green
+                cr.set_source_rgb(0.18, 0.80, 0.44)
             elif rating >= 7:
-                cr.set_source_rgb(0.5, 0.8, 0.2)   # Lime-green
-            elif rating >= 4.5: # WCAG AA
-                cr.set_source_rgb(0.9, 0.7, 0.1)   # Warm yellow for AA
-            elif rating >= 3: # WCAG AA Large Text
-                cr.set_source_rgb(0.9, 0.5, 0.1)   # Orange for large text only
+                cr.set_source_rgb(0.52, 0.93, 0.18)
+            elif rating >= 4.5:
+                cr.set_source_rgb(0.95, 0.77, 0.06)
+            elif rating >= 3:
+                cr.set_source_rgb(0.96, 0.49, 0.00)
             else:
-                cr.set_source_rgb(0.85, 0.25, 0.2) # Soft red for failing
+                cr.set_source_rgb(0.91, 0.22, 0.22)
 
-            # Draw filled circle (potentially partial)
-            cr.arc(x + dot_radius, y + dot_radius, dot_radius * fill_level, 0, 2 * math.pi)
+            cr.arc(cx, cy, radius * fill, 0, 2 * math.pi)
             cr.fill()
 
+    def blend_with_background(self, foreground, background):
+        if foreground.alpha >= 1.0:
+            return foreground
+        result = Gdk.RGBA()
+        alpha = foreground.alpha
+        result.red = foreground.red * alpha + background.red * (1 - alpha)
+        result.green = foreground.green * alpha + background.green * (1 - alpha)
+        result.blue = foreground.blue * alpha + background.blue * (1 - alpha)
+        result.alpha = 1.0
+        return result
 
     def calculate_relative_luminance(self, color):
-        def srgb_to_linear(channel):
-            if channel <= 0.03928:
-                return channel / 12.92
-            else:
-                return ((channel + 0.055) / 1.055) ** 2.4
-
+        def srgb_to_linear(c):
+            return c / 12.92 if c <= 0.03928 else ((c + 0.055) / 1.055) ** 2.4
         r = srgb_to_linear(color.red)
         g = srgb_to_linear(color.green)
         b = srgb_to_linear(color.blue)
         return 0.2126 * r + 0.7152 * g + 0.0722 * b
 
     def calculate_contrast_ratio(self):
-        # Blend colors if they have transparency
-        effective_text = self.blend_with_background(self.text_color, self.bg_color)
-        effective_bg = self.blend_with_background(self.bg_color, self.text_color)
-
-        l1 = self.calculate_relative_luminance(effective_text)
-        l2 = self.calculate_relative_luminance(effective_bg)
-
+        text = self.blend_with_background(self.text_color, self.bg_color)
+        bg = self.blend_with_background(self.bg_color, self.text_color)
+        l1 = self.calculate_relative_luminance(text)
+        l2 = self.calculate_relative_luminance(bg)
         if l1 < l2:
             l1, l2 = l2, l1
         return (l1 + 0.05) / (l2 + 0.05)
 
     def contrast_ratio_to_rating(self, ratio):
-        # Slightly adjusted logarithmic scale for better distribution visually
-        if ratio >= 21: return 10.0
-        elif ratio >= 7: # WCAG AAA threshold
-            return 7 + (math.log10(ratio) - math.log10(7)) * (3 / (math.log10(21) - math.log10(7))) # Scale 7-21 to 7-10
-        elif ratio >= 4.5: # WCAG AA threshold
-            return 4 + (math.log10(ratio) - math.log10(4.5)) * (3 / (math.log10(7) - math.log10(4.5))) # Scale 4.5-7 to 4-7
-        elif ratio >= 3: # WCAG AA Large Text threshold
-            return 2 + (math.log10(ratio) - math.log10(3)) * (2 / (math.log10(4.5) - math.log10(3))) # Scale 3-4.5 to 2-4
-        else: return max(0.5, ratio / 3 * 2) # Below 3:1, scale to 0.5-2
+        if ratio >= 21:
+            return 10.0
+        elif ratio >= 7:
+            return 7 + (math.log10(ratio) - math.log10(7)) * (3 / (math.log10(21) - math.log10(7)))
+        elif ratio >= 4.5:
+            return 4 + (math.log10(ratio) - math.log10(4.5)) * (3 / (math.log10(7) - math.log10(4.5)))
+        elif ratio >= 3:
+            return 2 + (math.log10(ratio) - math.log10(3)) * (2 / (math.log10(4.5) - math.log10(3)))
+        else:
+            return max(0.5, ratio / 3 * 2)
 
-    def update_contrast_rating(self):
+    def update_contrast_display(self):
         ratio = self.calculate_contrast_ratio()
         if ratio is None:
             return
 
+        rating = self.contrast_ratio_to_rating(ratio)
+        rating_str = f"{rating:.1f}".rstrip('0').rstrip('.')
+
         for dot in self.rating_dots:
             dot.queue_draw()
 
-        self.contrast_ratio_label.set_label(f"Contrast Ratio: {ratio:.2f}:1")
-
-        rating = self.contrast_ratio_to_rating(ratio)
-        rating_display = f"{rating:.1f}".replace(".0", "")
-
-        # Enhanced WCAG descriptions for clarity
         if ratio >= 7:
-            rating_text = f"Excellent ({rating_display}/10)"
-            wcag_text = "Meets WCAG AAA (normal text) & AAA (large text)."
+            quality = "Excellent"
+            wcag = "✓ Meets WCAG AAA (normal & large text)"
         elif ratio >= 4.5:
-            rating_text = f"Good ({rating_display}/10)"
-            wcag_text = "Meets WCAG AA (normal text) & AAA (large text)."
+            quality = "Good"
+            wcag = "✓ Meets WCAG AA (normal text) & AAA (large text)"
         elif ratio >= 3:
-            rating_text = f"Fair ({rating_display}/10)"
-            wcag_text = "Meets WCAG AA (large text only). Fails for normal text."
+            quality = "Fair"
+            wcag = "✓ Meets WCAG AA (large text only)\n✗ Fails for normal text"
         else:
-            rating_text = f"Poor ({rating_display}/10)"
-            wcag_text = "Fails WCAG requirements for all text sizes."
+            quality = "Poor"
+            wcag = "✗ Fails WCAG requirements for all text sizes"
 
-        self.rating_label.set_label(f"Rating: {rating_text}")
-        self.wcag_label.set_label(f"Accessibility: {wcag_text}")
+        self.rating_label.set_markup(f"<big><b>Rating: {quality} ({rating_str}/10)</b></big>")
+        self.contrast_ratio_label.set_markup(f"Contrast Ratio: <b>{ratio:.2f}:1</b>")
+        self.wcag_label.set_text(wcag)
 
+    def format_color(self, color, format_type):
+        if format_type == "hex":
+            return f"#{int(color.red*255):02X}{int(color.green*255):02X}{int(color.blue*255):02X}"
+        elif format_type == "hex_alpha":
+            return f"#{int(color.red*255):02X}{int(color.green*255):02X}{int(color.blue*255):02X}{int(color.alpha*255):02X}"
+        elif format_type == "rgb":
+            return f"{int(color.red*255)}, {int(color.green*255)}, {int(color.blue*255)}"
+        elif format_type == "rgba":
+            alpha = round(color.alpha, 2)
+            alpha_str = str(int(alpha)) if alpha == int(alpha) else str(alpha)
+            return f"{int(color.red*255)}, {int(color.green*255)}, {int(color.blue*255)}, {alpha_str}"
 
-    def create_preview_box(self, parent):
-        combined_preview_container = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
-        combined_preview_container.set_css_classes(["combined-preview-box"])
-        parent.append(combined_preview_container)
-
-        self.combined_preview = Gtk.DrawingArea()
-        self.combined_preview.set_size_request(-1, 90) # Height fixed, width adapts
-        self.combined_preview.set_draw_func(self.draw_combined_preview, None)
-        self.combined_preview.set_css_classes(["combined-preview-drawing"])
-        combined_preview_container.append(self.combined_preview)
-
-
-    def draw_combined_preview(self, area, cr, width, height, data):
-        # Draw background (with potential transparency)
-        bg = self.blend_with_background(self.bg_color, self.text_color)
-        Gdk.cairo_set_source_rgba(cr, bg)
-        cr.rectangle(0, 0, width, height)
-        cr.fill()
-
-        # Draw text (with potential transparency)
-        text_color_blended = self.blend_with_background(self.text_color, self.bg_color)
-        Gdk.cairo_set_source_rgba(cr, text_color_blended)
-        cr.select_font_face("Sans", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
-
-        # Using a slightly different approach for vertical centering and padding
-        padding_y = 10
-        total_text_height = (20 + 16 + 12) * 1.2 # Rough estimate of text heights with line spacing
-        start_y = (height - total_text_height) / 2 + padding_y # Center vertically within the box
-
-        # Define text styles and positions
-        texts = [
-            ("Body Text", 12),
-            ("Heading", 16),
-            ("Display Title", 20)
-        ]
-
-        current_y = start_y
-        for text_str, font_size in texts:
-            cr.set_font_size(font_size)
-            extents = cr.text_extents(text_str)
-            text_x = (width - extents.width) / 2
-            cr.move_to(text_x, current_y + extents.height / 2) # Center text vertically on its line
-            cr.show_text(text_str)
-            current_y += extents.height + 8 # Add line spacing
-
-    def create_color_panel(self, title, color, prefix):
-        panel_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
-        panel_box.set_css_classes(["color-panel-box"])
-
-        title_label = Gtk.Label(label=title)
-        title_label.set_css_classes(["panel-title"])
-        title_label.set_halign(Gtk.Align.CENTER)
-        panel_box.append(title_label)
-
-        preview = Gtk.DrawingArea()
-        preview.set_size_request(-1, 80)
-        preview.set_draw_func(self.draw_color_preview, color)
-        preview.set_css_classes(["color-preview"])
-        panel_box.append(preview)
-
-        formats = [
-            ("HEX", self.get_hex_color, "hex"),
-            ("HEX+Alpha", self.get_hex_alpha_color, "hex_alpha"),
-            ("RGB", self.get_rgb_color, "rgb"),
-            ("RGBA", self.get_rgba_color, "rgba")
-        ]
-
-        format_grid = Gtk.Grid()
-        format_grid.set_column_spacing(12)
-        format_grid.set_row_spacing(10)
-        format_grid.set_css_classes(["format-grid"])
-        panel_box.append(format_grid)
-
-        for i, (name, formatter, prop) in enumerate(formats):
-            label = Gtk.Label(label=name)
-            label.set_css_classes(["format-label"])
-            label.set_xalign(0)
-            format_grid.attach(label, 0, i, 1, 1)
-
-            entry = Gtk.Entry()
-            entry.set_text(formatter(color))
-            entry.set_hexpand(True)
-            format_grid.attach(entry, 1, i, 1, 1)
-
-            setattr(self, f"{prefix}_{prop}_entry", entry)
-
-            if prop == "rgba":
-                entry.connect("notify::has-focus", self.on_rgba_focus_change, prefix)
-                entry.connect("activate", self.on_rgba_activate, prefix)
-            else:
-                entry.connect("changed", getattr(self, f"on_{prop}_changed"), prefix)
-
-        return panel_box, preview
-
-    def on_rgba_focus_change(self, entry, param, prefix):
-        if not entry.has_focus():
-            self.validate_rgba(entry, prefix)
-
-    def on_rgba_activate(self, entry, prefix):
-        self.validate_rgba(entry, prefix)
-
-    def validate_rgba(self, entry, prefix):
+    def update_all_displays(self):
         if self.updating:
             return
-
-        text = entry.get_text()
-
-        try:
-            parts = [p.strip() for p in text.split(",")]
-            if len(parts) == 4:
-                color = getattr(self, f"{prefix}_color")
-                color.red = min(max(int(parts[0]), 0), 255)/255
-                color.green = min(max(int(parts[1]), 0), 255)/255
-                color.blue = min(max(int(parts[2]), 0), 255)/255
-                alpha_str = parts[3]
-                if alpha_str:
-                    alpha = min(max(float(alpha_str), 0.0), 1.0)
-                    color.alpha = alpha
-                self.update_displays(prefix)
-
-        except (ValueError, IndexError):
-            # If invalid, revert to current color representation
-            color = getattr(self, f"{prefix}_color")
-            self.updating = True
-            entry.set_text(f"{int(color.red*255)}, {int(color.green*255)}, {int(color.blue*255)}, {round(color.alpha, 2)}")
-            self.updating = False
-
-    def get_hex_color(self, color):
-        return f"#{int(color.red*255):02X}{int(color.green*255):02X}{int(color.blue*255):02X}"
-
-    def get_hex_alpha_color(self, color):
-        return f"#{int(color.red*255):02X}{int(color.green*255):02X}{int(color.blue*255):02X}{int(color.alpha*255):02X}"
-
-    def get_rgb_color(self, color):
-        return f"{int(color.red*255)}, {int(color.green*255)}, {int(color.blue*255)}"
-
-    def get_rgba_color(self, color):
-        # Format alpha to two decimal places, avoiding trailing zeros if .00
-        alpha_val = round(color.alpha, 2)
-        if alpha_val == int(alpha_val):
-            alpha_str = str(int(alpha_val)) # e.g., 1.0 becomes 1
-        else:
-            alpha_str = str(alpha_val) # e.g., 0.5 becomes 0.5
-
-        return f"{int(color.red*255)}, {int(color.green*255)}, {int(color.blue*255)}, {alpha_str}"
-
-
-    def draw_color_preview(self, area, cr, width, height, color):
-        Gdk.cairo_set_source_rgba(cr, color)
-        cr.rectangle(0, 0, width, height)
-        cr.fill()
-
-    def update_displays(self, color_var):
-        if self.updating:
-            return
-
         self.updating = True
 
-        color = getattr(self, f"{color_var}_color")
+        focused_widget = self.win.get_focus()
 
-        # Store cursor positions to restore them after updating text
-        cursor_positions = {
-            'hex': getattr(self, f"{color_var}_hex_entry").get_position(),
-            'hex_alpha': getattr(self, f"{color_var}_hex_alpha_entry").get_position(),
-            'rgb': getattr(self, f"{color_var}_rgb_entry").get_position(),
-            'rgba': getattr(self, f"{color_var}_rgba_entry").get_position()
-        }
+        for prefix in ["text", "bg"]:
+            color = getattr(self, f"{prefix}_color")
 
-        # Update text in entries
-        getattr(self, f"{color_var}_hex_entry").set_text(self.get_hex_color(color))
-        getattr(self, f"{color_var}_hex_alpha_entry").set_text(self.get_hex_alpha_color(color))
-        getattr(self, f"{color_var}_rgb_entry").set_text(self.get_rgb_color(color))
-        getattr(self, f"{color_var}_rgba_entry").set_text(self.get_rgba_color(color))
+            # Update the Gtk.ColorDialogButton's color
+            color_button = getattr(self, f"{prefix}_color_button", None)
+            if color_button and color_button.get_rgba().to_string() != color.to_string():
+                color_button.set_rgba(color)
 
-        # Restore cursor positions
-        # Only restore if the entry has focus to avoid interfering with user typing
-        if getattr(self, f"{color_var}_hex_entry").has_focus():
-            getattr(self, f"{color_var}_hex_entry").set_position(cursor_positions['hex'])
-        if getattr(self, f"{color_var}_hex_alpha_entry").has_focus():
-            getattr(self, f"{color_var}_hex_alpha_entry").set_position(cursor_positions['hex_alpha'])
-        if getattr(self, f"{color_var}_rgb_entry").has_focus():
-            getattr(self, f"{color_var}_rgb_entry").set_position(cursor_positions['rgb'])
-        if getattr(self, f"{color_var}_rgba_entry").has_focus():
-            getattr(self, f"{color_var}_rgba_entry").set_position(cursor_positions['rgba'])
+            for format_type in ["hex", "hex_alpha", "rgb", "rgba"]:
+                entry_widget = getattr(self, f"{prefix}_{format_type}_entry")
 
-
-        if color_var == "text":
-            self.text_preview.queue_draw()
-        else:
-            self.bg_preview.queue_draw()
+                has_focus = False
+                if focused_widget:
+                    # For Adw.EntryRow, the focus is on an internal Gtk.Entry.
+                    # We check if the stored widget is an ancestor of the focused widget.
+                    if HAS_ADWAITA and isinstance(entry_widget, Adw.EntryRow):
+                        if focused_widget == entry_widget or (hasattr(focused_widget, 'get_ancestor') and focused_widget.get_ancestor(Adw.EntryRow) == entry_widget):
+                            has_focus = True
+                    # For Gtk.Entry, we do a direct comparison.
+                    elif focused_widget == entry_widget:
+                        has_focus = True
+                
+                if not has_focus:
+                    entry_widget.set_text(self.format_color(color, format_type))
 
         self.combined_preview.queue_draw()
-        self.update_contrast_rating()
-
+        self.update_contrast_display()
         self.updating = False
 
-    def on_hex_changed(self, entry, prefix):
-        if self.updating:
-            return
+    def run(self):
+        print("Starting...")
+        # Don't manually call on_activate, let the signal do it
+        return self.app.run(sys.argv)
 
-        text = entry.get_text().lstrip('#')
-        if len(text) == 6: # Only update if complete HEX6
-            try:
-                color = getattr(self, f"{prefix}_color")
-                color.red = int(text[0:2], 16) / 255
-                color.green = int(text[2:4], 16) / 255
-                color.blue = int(text[4:6], 16) / 255
-                self.update_displays(prefix)
-            except ValueError:
-                pass # Ignore incomplete/invalid hex for live update, wait for full 6 chars
-
-    def on_hex_alpha_changed(self, entry, prefix):
-        if self.updating:
-            return
-
-        text = entry.get_text().lstrip('#')
-        if len(text) == 8: # Only update if complete HEX8
-            try:
-                color = getattr(self, f"{prefix}_color")
-                color.red = int(text[0:2], 16) / 255
-                color.green = int(text[2:4], 16) / 255
-                color.blue = int(text[4:6], 16) / 255
-                color.alpha = int(text[6:8], 16) / 255
-                self.update_displays(prefix)
-            except ValueError:
-                pass # Ignore incomplete/invalid hex for live update
-
-    def on_rgb_changed(self, entry, prefix):
-        if self.updating:
-            return
-
-        try:
-            parts_str = [p.strip() for p in entry.get_text().split(",")]
-            # Only update if exactly 3 parts and all are numeric
-            if len(parts_str) == 3 and all(p.isdigit() for p in parts_str):
-                parts = [int(p) for p in parts_str]
-                color = getattr(self, f"{prefix}_color")
-                color.red = min(max(parts[0], 0), 255)/255
-                color.green = min(max(parts[1], 0), 255)/255
-                color.blue = min(max(parts[2], 0), 255)/255
-                self.update_displays(prefix)
-        except ValueError:
-            pass # Ignore invalid input for live update
+def main():
+    picker = DualColorPicker()
+    return picker.run()
 
 if __name__ == "__main__":
-    app = DualColorPicker()
-    app.run()
+    sys.exit(main())
