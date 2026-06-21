@@ -3,15 +3,13 @@
 # This script applies a matugen theme based on a provided theme name.
 
 # ======================
-# Configuration
+# ⚙️ CONFIG
 # ======================
-
 set spinner "globe"
 
 # ======================
 # Helper Functions
 # ======================
-
 function generate_theme -a theme_name
     set theme_json_path (string join "" ~/.config/matugen/themes/ $theme_name ".json")
 
@@ -38,7 +36,6 @@ function set_wallpaper -a theme_name
         return
     end
 
-    # Get wallpapers array for selected theme
     set wallpapers (jq -r ".\"$theme_name\".wallpapers[]" "$config_file" 2>/dev/null)
 
     if test (count $wallpapers) -eq 0
@@ -46,7 +43,6 @@ function set_wallpaper -a theme_name
         return
     end
 
-    # Pick random wallpaper
     set wallpaper_path $wallpapers[(random 1 (count $wallpapers))]
 
     if not test -f "$wallpaper_path"
@@ -71,13 +67,19 @@ function set_folder_icons
     gum spin --spinner moon --title "Setting folder icon theme..." -- $icon_script_path
 end
 
+# ======================
+# 🎨 GNOME THEME ENGINE
+# ======================
 function apply_gnome_settings
-    # dconf write /org/gnome/shell/extensions/user-theme/name "'default'"
-    # dconf write /org/gnome/shell/extensions/user-theme/name "'Material-Gnome'"
 
+    # --- pop shell ---
     set pop_hint_color (cat ~/.config/colors/pop-shell.css | string trim)
     dconf write /org/gnome/shell/extensions/pop-shell/hint-color-rgba "'$pop_hint_color'"
 
+    # --- O-Tiling ---
+        dconf write /org/gnome/shell/extensions/o-tiling/hint-color-rgba "'$pop_hint_color'"
+
+    # --- clock ---
     set time_rgba (sed -n '1p' ~/.config/colors/clock-color.css)
     set date_rgba (sed -n '2p' ~/.config/colors/clock-color.css)
     set hint_rgba (sed -n '4p' ~/.config/colors/clock-color.css)
@@ -88,22 +90,26 @@ function apply_gnome_settings
     dconf write /org/gnome/shell/extensions/customize-clock-on-lockscreen/hint-font-color "'$hint_rgba'"
     dconf write /org/gnome/shell/extensions/customize-clock-on-lockscreen/command-output-font-color "'$cmd_rgba'"
 
+    # --- SPACE BAR ---
     set color_file ~/.config/colors/space-bar.css
+    while read -l line
+        set line (string trim $line)
+        string match -q "#*" $line; and continue
+        test -z "$line"; and continue
 
-    for line in (cat $color_file | string trim | grep -v '^#')
-        set parts (echo $line | string split '=')
+        set parts (string split '=' $line)
         set key (string trim $parts[1])
         set value (string trim $parts[2])
 
         switch $key
-            case 'active_bg'
+            case active_bg
                 set active_bg $value
-            case 'active_fg'
+            case active_fg
                 set active_fg $value
-            case 'inactive_fg'
+            case inactive_fg
                 set inactive_fg $value
         end
-    end
+    end < $color_file
 
     dconf write /org/gnome/shell/extensions/space-bar/appearance/active-workspace-background-color $active_bg
     dconf write /org/gnome/shell/extensions/space-bar/appearance/active-workspace-text-color $active_fg
@@ -111,51 +117,48 @@ function apply_gnome_settings
 
     python ~/Scripts/normalize_rgb.py
 
-    set color_file ~/.config/colors/search-light.css
+    # --- SEARCH LIGHT ---
+    set search_file ~/.config/colors/search-light.css
+    set foreground ""
+    set background ""
 
-    for line in (cat $color_file | string trim | grep -v '^#')
-        set parts (echo $line | string split '=')
+    while read -l line
+        set line (string trim $line)
+        string match -q "#*" $line; and continue
+        test -z "$line"; and continue
+
+        set parts (string split '=' $line)
         set key (string trim $parts[1])
         set value (string trim $parts[2])
 
         switch $key
-            case 'foreground'
-                set foreground $value
-            case 'background'
-                set background $value
+            case foreground; set foreground $value
+            case background; set background $value
         end
-    end
+    end < $search_file
 
     dconf write /org/gnome/shell/extensions/search-light/background-color "($background, 0.75)"
     dconf write /org/gnome/shell/extensions/search-light/text-color "($foreground, 1.0)"
     dconf write /org/gnome/shell/extensions/search-light/panel-icon-color "($foreground, 1.0)"
     dconf write /org/gnome/shell/extensions/search-light/border-color "($foreground, 1.0)"
 
-    # ======================
-    # 🎧 Dynamic Music Pill FIX ONLY
-    # ======================
+    # --- DYNAMIC MUSIC PILL ---
+    set music_color_file ~/.config/colors/search-light.css
 
-    set color_file ~/.config/colors/search-light.css
-
-    set fg_line (sed -n '1p' $color_file)
-    set bg_line (sed -n '2p' $color_file)
+    set fg_line (sed -n '1p' $music_color_file)
+    set bg_line (sed -n '2p' $music_color_file)
 
     set fg_vals (string split ", " (string replace "foreground = " "" $fg_line))
     set bg_vals (string split ", " (string replace "background = " "" $bg_line))
 
-    # convert 0–1 → 0–255 (ONLY for this feature)
     set fg_rgb (math "round($fg_vals[1] * 255)")","(math "round($fg_vals[2] * 255)")","(math "round($fg_vals[3] * 255)")
     set bg_rgb (math "round($bg_vals[1] * 255)")","(math "round($bg_vals[2] * 255)")","(math "round($bg_vals[3] * 255)")
 
     dconf write /org/gnome/shell/extensions/dynamic-music-pill/custom-text-color "'$fg_rgb'"
     dconf write /org/gnome/shell/extensions/dynamic-music-pill/custom-bg-color "'$bg_rgb'"
 
-    # remove quotes around hex if present
     set clean_bg (string replace -a "'" "" $active_bg)
     bash ~/Scripts/choose-accent.sh "$clean_bg"
-
-    # set yazi color
-    # python3 ~/Scripts/yazi-theme.py
 end
 
 function sync_darkreader
@@ -175,13 +178,26 @@ function sync_darkreader
     WHERE ext_id = 'addon@darkreader.org';
     "
 
-    echo \"🌙 Dark Reader synced → BG:$BG FG:$FG\"
+    # Fixed escaped quotes error here
+    echo "🌙 Dark Reader synced → BG:$BG FG:$FG"
 end
 
 # ======================
-# Main Script
+# 🚀 ZEN BOOST SYNC
 # ======================
+function sync_zen_boost
+    set script_dir (path dirname (status --current-filename))
 
+    if test -f "$script_dir/update-boost.js"
+        node "$script_dir/update-boost.js"
+    else
+        echo "⚠️ update-boost.js not found in script directory"
+    end
+end
+
+# ======================
+# 🌐 DARK READER SYNC
+# ======================
 if test -z "$argv[1]"
     echo "Usage: apply-theme.fish <theme_name>"
     exit 1
@@ -194,3 +210,6 @@ set_wallpaper $selected_theme_name
 set_folder_icons
 apply_gnome_settings
 sync_darkreader
+sync_zen_boost
+
+bash "/home/sakib/.config/matugen/post-hook-scripts/merge-layout.sh"

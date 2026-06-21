@@ -1,3 +1,8 @@
+/*
+* GTK Colors
+* Generated with Matugen
+*/
+
 :root {
   --primary: {{colors.primary.default.hex}};
   --on_primary: {{colors.on_primary.default.hex}};

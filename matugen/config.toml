@@ -25,14 +25,75 @@ post_hook = "pkill -USR1 clock-rs"
 input_path = '~/.config/matugen/templates/mpv-config.conf'
 output_path = '~/.config/mpv/mpv.conf'
 
+[templates.cosmic]
+input_path = '~/.config/matugen/templates/cosmic_theme.ron'
+output_path = '~/.config/cosmic/com.system76.CosmicTheme.v1/v1/custom.ron'
+
+[templates.fish]
+input_path = '~/.config/matugen/templates/fish.tpl'
+output_path = '~/.config/fish/matugen_colors.fish'
+post_hook = "fish -c 'set -U MATUGEN_RELOAD_TRIGGER (date +%s)'"
+
 [templates.fix]
 input_path = "~/.config/matugen/templates/fix.css"
 output_path = "~/.config/colors/fix.css"
 
 [templates.gnome-shell]
 input_path = '~/.config/matugen/templates/gnome-shell.css'
-output_path = '~/.themes/Material-Gnome/gnome-shell/gnome-shell.css'
-post_hook = "dconf write /org/gnome/shell/extensions/user-theme/name \"'default'\" && dconf write /org/gnome/shell/extensions/user-theme/name \"'Material-Gnome'\""
+output_path = '~/.themes/Material-Gnome/gnome-shell/gnome-shell-stub.css'
+# post_hook = "~/.config/matugen/post-hook-scripts/merge-layout.sh"
+
+[templates.gnome-shell-active]
+input_path = "~/.config/matugen/templates/gnome-active-layout.css"
+output_path = "~/.themes/Material-Gnome/gnome-shell/layouts/active-layout.css"
+
+[templates.gnome-shell-floating-capsule]
+input_path = '~/.config/matugen/templates/gnome-floating-capsule.css'
+output_path = '~/.themes/Material-Gnome/gnome-shell/layouts/floating-capsule.css'
+
+[templates.gnome-shell-floating-capsule-glass]
+input_path = '~/.config/matugen/templates/gnome-floating-capsule-glass.css'
+output_path = '~/.themes/Material-Gnome/gnome-shell/layouts/floating-capsule-glass.css'
+
+[templates.gnome-shell-pill-duo]
+input_path = '~/.config/matugen/templates/gnome-pill-duo.css'
+output_path = '~/.themes/Material-Gnome/gnome-shell/layouts/pill-duo.css'
+
+[templates.gnome-unified-pill]
+input_path = '~/.config/matugen/templates/gnome-segmented-pill.css'
+output_path = '~/.themes/Material-Gnome/gnome-shell/layouts/segmented-pill.css'
+
+[templates.gnome-unified-capsule-bottom]
+input_path = '~/.config/matugen/templates/gnome-unified-capsule-bottom.css'
+output_path = '~/.themes/Material-Gnome/gnome-shell/layouts/unified-capsule-bottom.css'
+
+[templates.gnome-unified-bar]
+input_path = '~/.config/matugen/templates/gnome-unified-bar.css'
+output_path = '~/.themes/Material-Gnome/gnome-shell/layouts/unified-bar.css'
+
+[templates.gnome-unified-capsule]
+input_path = '~/.config/matugen/templates/gnome-unified-capsule.css'
+output_path = '~/.themes/Material-Gnome/gnome-shell/layouts/unified-capsule.css'
+
+[templates.gnome-structured-box]
+input_path = '~/.config/matugen/templates/gnome-structured-box.css'
+output_path = '~/.themes/Material-Gnome/gnome-shell/layouts/structured-box.css'
+
+[templates.gnome-default]
+input_path = '~/.config/matugen/templates/gnome-default.css'
+output_path = '~/.themes/Material-Gnome/gnome-shell/layouts/default.css'
+
+[templates.gnome-unified-border]
+input_path = '~/.config/matugen/templates/gnome-unified-border.css'
+output_path = '~/.themes/Material-Gnome/gnome-shell/layouts/unified-border.css'
+
+[templates.gnome-segmented-dock]
+input_path = '~/.config/matugen/templates/gnome-segmented-dock.css'
+output_path = '~/.themes/Material-Gnome/gnome-shell/layouts/segmented-dock.css'
+
+[templates.gnome-default-transperacy]
+input_path = '~/.config/matugen/templates/gnome-default-transparecy.css'
+output_path = '~/.themes/Material-Gnome/gnome-shell/layouts/default-transparecy.css'
 
 [templates.gtk3]
 input_path = '~/.config/matugen/templates/gtk3-colors.css'
@@ -50,7 +111,7 @@ output_path = '~/.themes/Material-Gnome/gtk-4.0/colors.css'
 [templates.gtk4_theme]
 input_path = '~/.config/matugen/templates/gtk4-colors.css'
 output_path = '~/.config/gtk-4.0/colors.css'
-post_hook = '~/Scripts/gtk-themes-reload.sh'
+post_hook = '~/.config/matugen/post-hook-scripts/gtk-themes-reload.sh'
 
 [templates.kew]
 input_path = '~/.config/matugen/templates/kew.theme'
@@ -117,10 +178,6 @@ output_path = "~/.config/colors/space-bar.css"
 input_path = '~/.config/matugen/templates/starship.toml'
 output_path = '~/.config/starship.toml'
 
-# [templates.userContent]
-# input_path = '~/.config/matugen/templates/userContent.css'
-# output_path = '~/.zen/oup922t1.Default (release)/chrome/content.css'
-
 [templates.yazi]
 input_path = '~/.config/matugen/templates/yazi.toml'
 output_path = '~/.config/yazi/theme.toml'
@@ -137,14 +194,6 @@ output_path = "~/.zen/oup922t1.Default (release)/chrome/zen-about-pages.css"
 input_path = '~/.config/matugen/templates/zen-accent.js'
 output_path = '~/.zen/oup922t1.Default (release)/user.js'
 
-# [templates.zen-browser]
-# input_path = '~/.config/matugen/templates/zen-dms.css'
-# output_path = '~/.zen/oup922t1.Default (release)/chrome/mods/DMS-Matugen.css'
-
 [templates.zen-browser-website-colors]
 input_path = "~/.config/matugen/templates/zen-colors.css"
 output_path = "~/.zen/oup922t1.Default (release)/chrome/colors.css"
-
-#[templates.zen-a]
-#input_path = "~/.config/matugen/templates/zen.json"
-#output_path = "~/.config/zen-boosts/matugen.json"

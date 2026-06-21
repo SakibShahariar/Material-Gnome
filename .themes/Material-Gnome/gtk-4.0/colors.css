@@ -1,47 +1,66 @@
+/*
+* GTK Colors
+* Generated with Matugen
+*/
+
 :root {
-  /* 🌈 Base 16 Color Variables */
-  --color0: #15130c;
-  --color1: #333027;
-  --color2: #ccc6b5;
-  --color3: #cfc7a2;
-  --color4: #e8e2d5;
-  --color5: #ffb4ab;
-  --color6: #504700;
-  --color7: #e8e2d5;
-  --color8: #f3e489;
-  --color9: #15130c;
-  --color10: #373100;
-  --color11: #353117;
-  --color12: #f3e489;
-  --color13: #d6c871;
-  --color14: #212017;
-  --color15: #e8e2d5;
-  --color16: #690005;
-  --color17: #2c2a21;
-  --color18: #d6c871;
-  --color19: #294e3b;
-  --color20: #a7d0b6;
-  --color21: #113725;
-  --color22: #37352c;
-  --color23: #1d1c13;
-  --color24: #15130c;
-  --color13-r: 214;
-  --color13-g: 200;
-  --color13-b: 113;
-  --color0-r: 21;
-  --color0-g: 19;
-  --color0-b: 12;
-  --color2-r: 204;
-  --color2-g: 198;
-  --color2-b: 181;
-  --color5-r: 255;
-  --color5-g: 180;
-  --color5-b: 171;
-  --color6-r: 80;
-  --color6-g: 71;
-  --color6-b: 0;
-  --color18-r: 214;
-  --color18-g: 200;
-  --color18-b: 113;
+  --primary: #c7c3e6;
+  --on_primary: #2f2d49;
+  --primary_container: #373551;
+  --on_primary_container: #c9c5e8;
+  --inverse_primary: #5e5b79;
+  --primary_fixed: #e3dfff;
+  --primary_fixed_dim: #c7c3e6;
+  --on_primary_fixed: #1a1833;
+  --on_primary_fixed_variant: #464460;
+
+  --secondary: #c8c4d4;
+  --on_secondary: #302f3b;
+  --secondary_container: #474552;
+  --on_secondary_container: #e2deee;
+  --secondary_fixed: #e4e0f0;
+  --secondary_fixed_dim: #c8c4d4;
+  --on_secondary_fixed: #1b1a25;
+  --on_secondary_fixed_variant: #474552;
+
+  --tertiary: #d3c793;
+  --on_tertiary: #38300a;
+  --tertiary_container: #b7ab7a;
+  --on_tertiary_container: #272000;
+  --tertiary_fixed: #f0e3ad;
+  --tertiary_fixed_dim: #d3c793;
+  --on_tertiary_fixed: #211b00;
+  --on_tertiary_fixed_variant: #4f471f;
+
+  --error: #ffb4ab;
+  --on_error: #690005;
+  --error_container: #93000a;
+  --on_error_container: #ffdad6;
+
+  --surface_dim: #141315;
+  --surface: #141315;
+  --surface_tint: #c7c3e6;
+  --surface_bright: #3a393b;
+  --surface_container_lowest: #0e0e10;
+  --surface_container_low: #1c1b1d;
+  --surface_container: #201f21;
+  --surface_container_high: #2a2a2c;
+  --surface_container_highest: #353437;
+  --surface_variant: #47464d;
+  --on_surface: #e5e1e4;
+  --on_surface_variant: #c8c5ce;
+
+  --outline: #928f98;
+  --outline_variant: #47464d;
+
+  --inverse_surface: #e5e1e4;
+  --inverse_on_surface: #313032;
+
+  --background: #141315;
+  --on_background: #e5e1e4;
+
+  --shadow: #000000;
+  --scrim: #000000;
+  --source_color: #373551;
 }
 

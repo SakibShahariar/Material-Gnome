@@ -92,7 +92,7 @@ style = "bold {{colors.secondary.default.hex}}"
 # ─────────────────────────────
 [username]
 format = "[$user]($style) "
-style_user = "bold {{colors.on_surface_variant.default.hex}}"
+style_user = "bold {{colors.primary.default.hex}}"
 show_always = true
 
 # ─────────────────────────────

@@ -1,3 +1,8 @@
+# Import dynamic Matugen color theme
+if test -f ~/.config/fish/matugen_colors.fish
+    source ~/.config/fish/matugen_colors.fish
+end
+
 # ======================
 # 🖥️ CORE SHELL SETTINGS
 # ======================
@@ -68,7 +73,7 @@ alias disk="dysk"
 # 🎨 CONFIGURATION
 # ======================
 alias fe="micro ~/.config/fish/config.fish"
-alias fr="source ~/.config/fish/config.fish"
+alias fr="set -g _fish_reloading 1; source ~/.config/fish/config.fish; set -e _fish_reloading"
 alias ke="micro ~/.config/kitty/kitty.conf"
 
 # ======================
@@ -158,11 +163,23 @@ function sudo
     doas $argv
 end
 
+# Watch for Matugen wallpaper/theme changes universally
+function on_matugen_change --on-variable MATUGEN_RELOAD_TRIGGER
+    set -g _fish_reloading 1
+    if test -f ~/.config/fish/matugen_colors.fish
+        source ~/.config/fish/matugen_colors.fish
+    end
+    set -e _fish_reloading
+end
+
 # ======================
 # 🖥️ INTERACTIVE SESSION
 # ======================
 if status is-interactive
-    fastfetch --config ~/.config/fastfetch/pre.jsonc
+    # Only run fastfetch if we aren't actively reloading the shell
+    if not set -q _fish_reloading
+        fastfetch --config ~/.config/fastfetch/pre.jsonc
+    end
 end
 
 # uv
@@ -170,3 +187,4 @@ fish_add_path "/home/sakib/.local/bin"
 
 # opencode
 fish_add_path /home/sakib/.opencode/bin
+umask 007
