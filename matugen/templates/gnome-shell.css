@@ -4552,7 +4552,8 @@ StWidget.focused .app-grid-running-dot {
   background-color: rgba({{colors.on_background.default.red}}, {{colors.on_background.default.green}}, {{colors.on_background.default.blue}}, 0.6);
 }
 
-#dashtodockContainer #dash .dash-background {
+#dashtodockContainer #dash .dash-background,
+#dashtodockContainer:overview #dash .dash-background {
   background-color: {{colors.background.default.hex}};
   border: 2px solid {{colors.primary.default.hex}};
 }
@@ -4575,7 +4576,9 @@ StWidget.focused .app-grid-running-dot {
 
 #dashtodockContainer .show-apps .overview-icon,
 #dashtodockContainer .app-well-app .overview-icon {
-  color: {{colors.on_surface.default.hex}};
+  color: {{colors.primary.default.hex}};
+  background-color: transparent;
+  transition-duration: 200ms;
 }
 
 #dashtodockContainer .show-apps:hover .overview-icon,
@@ -4597,7 +4600,7 @@ StWidget.focused .app-grid-running-dot {
 
 #dashtodockContainer:overview #dash .show-apps .overview-icon,
 #dashtodockContainer:overview #dash .app-well-app .overview-icon {
-  color: {{colors.on_surface.default.hex}};
+  color: {{colors.primary.default.hex}};
 }
 
 #dashtodockContainer:overview #dash .show-apps:hover .overview-icon,
@@ -4614,7 +4617,7 @@ StWidget.focused .app-grid-running-dot {
 #dashtodockContainer:overview #dash .app-well-app:active .overview-icon,
 #dashtodockContainer:overview #dash .app-well-app:checked .overview-icon {
   background-color: {{colors.primary.default.hex}};
-  color: {{colors.on_primary.default.hex}};
+  color: {{colors.primary.default.hex}};
 }
 
 #dashtodockContainer.opaque #dash .dash-background {
@@ -4623,11 +4626,6 @@ StWidget.focused .app-grid-running-dot {
 
 #dashtodockContainer.transparent #dash .dash-background {
   background-color: rgba({{colors.on_background.default.red}}, {{colors.on_background.default.green}}, {{colors.on_background.default.blue}}, 0.35);
-}
-
-#dashtodockContainer:overview #dash .dash-background {
-  background-color: {{colors.surface_container_high.default.hex}};
-  border: 2px solid transparent;
 }
 
 #dashtodockContainer.opaque:overview #dash .dash-background,
