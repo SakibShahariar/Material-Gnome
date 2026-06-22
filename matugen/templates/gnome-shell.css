@@ -4555,7 +4555,7 @@ StWidget.focused .app-grid-running-dot {
 #dashtodockContainer #dash .dash-background,
 #dashtodockContainer:overview #dash .dash-background {
   background-color: {{colors.background.default.hex}};
-  border: 2px solid {{colors.primary.default.hex}};
+  border: 1px solid rgba({{colors.primary.default.red}}, {{colors.primary.default.green}}, {{colors.primary.default.blue}}, 0.5);
 }
 
 #dashtodockContainer .app-well-app-running-dot {
@@ -4581,15 +4581,6 @@ StWidget.focused .app-grid-running-dot {
   transition-duration: 200ms;
 }
 
-#dashtodockContainer .show-apps:hover .overview-icon,
-#dashtodockContainer .show-apps:focus .overview-icon,
-#dashtodockContainer .show-apps:selected .overview-icon,
-#dashtodockContainer .app-well-app:hover .overview-icon,
-#dashtodockContainer .app-well-app:focus .overview-icon,
-#dashtodockContainer .app-well-app:selected .overview-icon {
-  background-color: {{colors.surface_container_high.default.hex}};
-}
-
 #dashtodockContainer .show-apps:active .overview-icon,
 #dashtodockContainer .show-apps:checked .overview-icon,
 #dashtodockContainer .app-well-app:active .overview-icon,
@@ -4603,13 +4594,20 @@ StWidget.focused .app-grid-running-dot {
   color: {{colors.primary.default.hex}};
 }
 
+#dashtodockContainer .show-apps:hover .overview-icon,
+#dashtodockContainer .show-apps:focus .overview-icon,
+#dashtodockContainer .show-apps:selected .overview-icon,
+#dashtodockContainer .app-well-app:hover .overview-icon,
+#dashtodockContainer .app-well-app:focus .overview-icon,
+#dashtodockContainer .app-well-app:selected .overview-icon,
 #dashtodockContainer:overview #dash .show-apps:hover .overview-icon,
 #dashtodockContainer:overview #dash .show-apps:focus .overview-icon,
 #dashtodockContainer:overview #dash .show-apps:selected .overview-icon,
 #dashtodockContainer:overview #dash .app-well-app:hover .overview-icon,
 #dashtodockContainer:overview #dash .app-well-app:focus .overview-icon,
 #dashtodockContainer:overview #dash .app-well-app:selected .overview-icon {
-  background-color: {{colors.surface_container_high.default.hex}};
+  background-color: rgba({{colors.primary.default.red}}, {{colors.primary.default.green}}, {{colors.primary.default.blue}}, 0.5);
+  color: {{colors.primary.default.hex}} !important;
 }
 
 #dashtodockContainer:overview #dash .show-apps:active .overview-icon,
