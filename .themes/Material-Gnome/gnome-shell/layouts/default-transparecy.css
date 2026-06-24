@@ -1,12 +1,12 @@
 /* GNOME Default Shell Style */
 #panel {
-  background-color: rgba(20, 19, 21, 0.75);
+  background-color: rgba(20, 19, 24, 0.75);
   border: none;
   border-radius: 0px;
   width: 100%;
   height: 32px;
   transition: background-color 250ms ease-in-out;
-  color: #c7c3e6;
+  color: #c9bfff;
   font-weight: bold;
   font-feature-settings: 'tnum';
   font-size: 10pt;
@@ -26,7 +26,7 @@
   -natural-hpadding: 12px;
   -minimum-hpadding: 12px;
   font-weight: bold;
-  color: #c7c3e6;
+  color: #c9bfff;
   background-color: transparent;
   transition: all 150ms ease-in-out;
   border-radius: 0px;
@@ -38,7 +38,7 @@
 }
 
 .panel-button.clock-display .clock {
-  color: #c7c3e6 !important;
+  color: #c9bfff !important;
   text-shadow: none !important;
   background-color: transparent !important;
   border: none !important;
@@ -47,8 +47,8 @@
 }
 
 #panel .panel-button:hover {
-  background-color: rgba(199, 195, 230, 0.15);
-  color: #c7c3e6;
+  background-color: rgba(201, 191, 255, 0.15);
+  color: #c9bfff;
 }
 
 /* ── ACTIVE / CHECKED / FOCUS — bg=primary, fg=on_primary ── */
@@ -61,16 +61,16 @@
 #panel .panel-button:focus:hover,
 #panel .panel-button:checked,
 #panel .panel-button:checked:hover {
-  color: #2f2d49;
-  background-color: #c7c3e6;
+  color: #302077;
+  background-color: #c9bfff;
 }
 
 .panel-button.clock-display:active .clock,
 .panel-button.clock-display:overview .clock,
 .panel-button.clock-display:focus .clock,
 .panel-button.clock-display:checked .clock {
-  color: #2f2d49 !important;
-  background-color: #c7c3e6 !important;
+  color: #302077 !important;
+  background-color: #c9bfff !important;
 }
 
 /* ── LOCK / LOGIN SCREENS ──────────────── */
@@ -78,7 +78,7 @@
 .unlock-screen #panel .panel-button,
 .login-screen #panel .panel-button,
 .lock-screen #panel .panel-button {
-  color: #c7c3e6;
+  color: #c9bfff;
   background-color: transparent;
   border-radius: 0px;
   margin: 0px;
@@ -93,8 +93,8 @@
 .lock-screen #panel .panel-button:focus,
 .lock-screen #panel .panel-button:hover,
 .lock-screen #panel .panel-button:active {
-  color: #2f2d49;
-  background-color: #c7c3e6;
+  color: #302077;
+  background-color: #c9bfff;
 }
 
 /* ── ICONS ─────────────────────────────── */
@@ -129,7 +129,7 @@
   border-radius: 9999px;
   min-width: 6px;
   min-height: 6px;
-  background-color: #c7c3e6;
+  background-color: #c9bfff;
 }
 
 /* ── OVERVIEW / LOCK PANEL STATES ──────── */
@@ -151,15 +151,15 @@
 #panel.login-screen StIcon,
 #panel.lock-screen StLabel,
 #panel.lock-screen StIcon {
-  color: #c7c3e6;
+  color: #c9bfff;
 }
 
 #panel:overview .panel-button:hover,
 #panel.unlock-screen .panel-button:hover,
 #panel.login-screen .panel-button:hover,
 #panel.lock-screen .panel-button:hover {
-  color: #c7c3e6;
-  background-color: rgba(199, 195, 230, 0.08);
+  color: #c9bfff;
+  background-color: rgba(201, 191, 255, 0.08);
 }
 
 #panel:overview .panel-button:hover.clock-display,
@@ -167,15 +167,15 @@
 #panel.login-screen .panel-button:hover.clock-display,
 #panel.lock-screen .panel-button:hover.clock-display {
   box-shadow: none;
-  color: #c7c3e6;
+  color: #c9bfff;
 }
 
 #panel:overview .panel-button:hover.clock-display .clock,
 #panel.unlock-screen .panel-button:hover.clock-display .clock,
 #panel.login-screen .panel-button:hover.clock-display .clock,
 #panel.lock-screen .panel-button:hover.clock-display .clock {
-  color: #c7c3e6;
-  background-color: rgba(199, 195, 230, 0.08);
+  color: #c9bfff;
+  background-color: rgba(201, 191, 255, 0.08);
 }
 
 #panel:overview .panel-button:active,
@@ -194,8 +194,8 @@
 #panel.lock-screen .panel-button:overview,
 #panel.lock-screen .panel-button:focus,
 #panel.lock-screen .panel-button:checked {
-  color: #2f2d49;
-  background-color: #c7c3e6;
+  color: #302077;
+  background-color: rgba(201, 191, 255, 0.2);
 }
 
 #panel:overview .panel-button:active.clock-display .clock,
@@ -214,15 +214,15 @@
 #panel.lock-screen .panel-button:overview.clock-display .clock,
 #panel.lock-screen .panel-button:focus.clock-display .clock,
 #panel.lock-screen .panel-button:checked.clock-display .clock {
-  background-color: #c7c3e6;
-  color: #2f2d49;
+  background-color: #c9bfff;
+  color: #302077;
 }
 
 #panel:overview .panel-button#panelActivities .workspace-dot,
 #panel.unlock-screen .panel-button#panelActivities .workspace-dot,
 #panel.login-screen .panel-button#panelActivities .workspace-dot,
 #panel.lock-screen .panel-button#panelActivities .workspace-dot {
-  background-color: #c7c3e6;
+  background-color: #c9bfff;
 }
 
 #panel:overview .panel-corner,
