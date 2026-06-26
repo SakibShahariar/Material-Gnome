@@ -71,7 +71,7 @@ Material-Gnome/
 - `python3` — wallpaper picker and color normalization scripts
 - `fish` shell — scripts are written in fish
 
-### GNOME Shell Extensions (required)
+### GNOME Shell Extensions
 - [**O-Tiling**](https://github.com/oliwebd/o-tiling)
 - [**Space Bar**](https://extensions.gnome.org/extension/5090/space-bar/)
 - [**Vitals**](https://extensions.gnome.org/extension/1460/vitals/)
