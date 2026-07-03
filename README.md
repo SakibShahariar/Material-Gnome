@@ -201,3 +201,6 @@ bash ~/Scripts/gnome-layout-switcher.sh
 This project is licensed under the **GPL-3.0 License** — see the [LICENSE](LICENSE) file for details.
 
 This repo also bundles a few third-party components under their own licenses — see [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md) for details.
+
+## Star History
+[![Star History Chart](https://api.star-history.com/svg?repos=SakibShahariar/Material-Gnome&type=Date)](https://star-history.com/#SakibShahariar/Material-Gnome&Date)
