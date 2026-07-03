@@ -1,4 +1,16 @@
-# Material-Gnome (Dotfiles)
+<h1 align="center"> Material-Gnome (Dotfiles) </h3>
+
+<p align="center">
+  <a href="https://github.com/SakibShahariar/Material-Gnome/stargazers">
+    <img src="https://img.shields.io/github/stars/SakibShahariar/Material-Gnome?style=for-the-badge&logo=starship&color=4285F4&logoColor=white&labelColor=1F1F1F">
+  </a>
+  <a href="https://github.com/SakibShahariar/Material-Gnome/issues">
+    <img src="https://img.shields.io/github/issues/SakibShahariar/Material-Gnome?style=for-the-badge&logo=gitbook&color=AA66CC&logoColor=white&labelColor=1F1F1F">
+  </a>
+  <a href="https://github.com/SakibShahariar/Material-Gnome/graphs/contributors">
+    <img src="https://img.shields.io/github/contributors/SakibShahariar/Material-Gnome?style=for-the-badge&logo=github&color=00BFA5&logoColor=white&labelColor=1F1F1F">
+  </a>
+</p>
 
 A full Matugen-powered, wallpaper-driven theming pipeline for GNOME — generates a consistent Material color palette from your wallpaper and pushes it across the desktop, terminal apps, media players, Qt apps, the file manager, and the browser.
 
