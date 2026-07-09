@@ -10,16 +10,22 @@ set spinner "globe"
 # ======================
 # Helper Functions
 # ======================
-function generate_theme -a theme_name
-    set theme_json_path (string join "" ~/.config/matugen/themes/ $theme_name ".json")
+function generate_theme -a theme_name mode
+    if test "$mode" = "dark"
+        set variant_suffix "-Dark"
+    else
+        set variant_suffix "-Light"
+    end
+
+    set theme_json_path (string join -- "" ~/.config/matugen/themes/ $theme_name $variant_suffix ".json")
 
     if not test -f "$theme_json_path"
         echo "Error: Theme JSON file not found: $theme_json_path"
         exit 1
     end
 
-    gum spin --spinner $spinner --title "Generating theme from $theme_name..." -- fish -c "
-        matugen json $theme_json_path --show-colors
+    gum spin --spinner $spinner --title "Generating theme from $theme_name ($mode)..." -- fish -c "
+        matugen json $theme_json_path
     "
 end
 
@@ -115,8 +121,6 @@ function apply_gnome_settings
     dconf write /org/gnome/shell/extensions/space-bar/appearance/active-workspace-text-color $active_fg
     dconf write /org/gnome/shell/extensions/space-bar/appearance/inactive-workspace-text-color $inactive_fg
 
-    python ~/Scripts/normalize_rgb.py
-
     # --- SEARCH LIGHT ---
     set search_file ~/.config/colors/search-light.css
     set foreground ""
@@ -205,7 +209,15 @@ end
 
 set selected_theme_name "$argv[1]"
 
-generate_theme $selected_theme_name
+# Detect mode safely
+set raw_scheme (gsettings get org.gnome.desktop.interface color-scheme)
+if string match -q "*prefer-dark*" $raw_scheme
+    set current_mode "dark"
+else
+    set current_mode "light"
+end
+
+generate_theme $selected_theme_name $current_mode
 set_wallpaper $selected_theme_name
 set_folder_icons
 apply_gnome_settings

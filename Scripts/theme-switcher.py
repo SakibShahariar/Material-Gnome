@@ -7,6 +7,7 @@ from gi.repository import Gtk, GLib, Gio, Gdk, Adw, GObject
 import cairo
 
 import os
+import re
 import subprocess
 import random
 import json
@@ -361,21 +362,92 @@ class ThemeSwitcher(Adw.Application):
             GLib.source_remove(self.search_timeout_id)
             self.search_timeout_id = None
 
+    def extract_color(self, data, key, fallback):
+        node = data.get("colors", {}).get(key, fallback)
+
+        if isinstance(node, str):
+            return node
+
+        if isinstance(node, dict):
+            default = node.get("default", None)
+            if isinstance(default, str):
+                return default
+            if isinstance(default, dict):
+                color = default.get("color")
+                if isinstance(color, str):
+                    return color
+            color = node.get("color")
+            if isinstance(color, str):
+                return color
+
+        return fallback
+
+    def get_current_mode(self):
+        try:
+            settings = Gio.Settings.new("org.gnome.desktop.interface")
+            scheme = settings.get_string("color-scheme")
+            return "dark" if "dark" in scheme.lower() else "light"
+        except Exception:
+            # Fall back to gsettings CLI if the schema/binding isn't available
+            try:
+                result = subprocess.run(
+                    ["gsettings", "get", "org.gnome.desktop.interface", "color-scheme"],
+                    capture_output=True, text=True, check=True
+                )
+                return "dark" if "dark" in result.stdout.lower() else "light"
+            except Exception:
+                return "light"
+
     def load_themes_to_model(self):
         try:
             theme_dir = Path.home() / ".config" / "matugen" / "themes"
             if not theme_dir.exists():
                 self.show_error_dialog(f"Theme directory not found: {theme_dir}")
                 return
-            
-            themes = []
+
+            current_mode = self.get_current_mode()
+            preferred_variant = "Dark" if current_mode == "dark" else "Light"
+
+            # Group theme files by base name, e.g. "Dracula-Light.json" and
+            # "Dracula-Dark.json" both belong to the "Dracula" theme.
+            variant_pattern = re.compile(r'^(.*)-(Light|Dark)$', re.IGNORECASE)
+            theme_groups = {}
             for theme_file in sorted(theme_dir.glob("*.json")):
-                with open(theme_file, 'r') as f:
-                    data = json.load(f)
-                    primary_color = data.get("colors", {}).get("primary", {}).get("default", {}).get("color", "#FFFFFF")
-                    surface_color = data.get("colors", {}).get("surface", {}).get("default", {}).get("color", "#000000")
-                    themes.append(Theme(theme_file.stem, primary_color, surface_color))
-            
+                stem = theme_file.stem
+                match = variant_pattern.match(stem)
+                if match:
+                    base_name = match.group(1)
+                    variant = match.group(2).capitalize()
+                else:
+                    # No -Light/-Dark suffix; treat the whole stem as its own theme
+                    base_name = stem
+                    variant = None
+                theme_groups.setdefault(base_name, {})[variant] = theme_file
+
+            themes = []
+            skipped = []
+            for base_name in sorted(theme_groups.keys(), key=str.lower):
+                variants = theme_groups[base_name]
+                # Prefer the file matching the current system mode, then fall
+                # back to whatever variant is available.
+                theme_file = (
+                    variants.get(preferred_variant)
+                    or variants.get("Light")
+                    or variants.get("Dark")
+                    or next(iter(variants.values()))
+                )
+
+                try:
+                    with open(theme_file, 'r') as f:
+                        data = json.load(f)
+                    primary_color = self.extract_color(data, "primary", "#FFFFFF")
+                    surface_color = self.extract_color(data, "surface", "#000000")
+                    themes.append(Theme(base_name, primary_color, surface_color))
+                except Exception as e:
+                    # Don't let one malformed theme file break the whole list
+                    print(f"[WARN] Skipping theme '{base_name}' ({theme_file.name}): {e}")
+                    skipped.append(base_name)
+
             # Store in all_themes
             self.all_themes.splice(0, self.all_themes.get_n_items(), themes)
             
@@ -384,9 +456,17 @@ class ThemeSwitcher(Adw.Application):
             
             # Show notification about loaded themes
             if themes:
-                self.show_notification(f"Themes Loaded", f"Successfully loaded {len(themes)} themes")
+                msg = f"Successfully loaded {len(themes)} themes ({current_mode} mode)"
+                if skipped:
+                    msg += f" — skipped {len(skipped)}: {', '.join(skipped)}"
+                self.show_notification(f"Themes Loaded", msg)
                 # Update status label
                 self.update_status_label()
+            elif skipped:
+                self.show_error_dialog(
+                    f"All theme files failed to load. First error was with '{skipped[0]}'. "
+                    f"Check the terminal output for details."
+                )
 
         except Exception as e:
             self.show_error_dialog(f"An error occurred while loading themes: {e}")
