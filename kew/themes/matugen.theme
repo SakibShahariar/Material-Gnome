@@ -1,0 +1,61 @@
+# ============================================
+# MATUGEN DYNAMIC THEME TEMPLATE
+# ============================================
+
+[theme]
+name=Matugen Custom
+
+# Core colors
+accent=#c9bfff
+text=#e5e1ea
+textDim=#c9c4d4
+textMuted=#938f9d
+
+# General Colors
+logo=#c9bfff
+header=#c9bfff
+footer=#201f25
+help=#e5e1ea
+link=#c9bfff
+nowplaying=#c9bfff
+playbackstatus=#484552
+
+# Playlist View
+playlist.rownum=#938f9d
+playlist.title=#e5e1ea
+playlist.playing=#c9bfff
+
+# Track View
+# Primary used here for emphasis on main data
+trackview.title=#c9bfff
+trackview.artist=#e5e1ea
+trackview.album=#c9c4d4
+trackview.year=#c9c4d4
+trackview.time=#c9c4d4
+trackview.visualizer=#c9bfff
+trackview.lyrics=#e5e1ea
+
+# Library View
+library.artist=#c9bfff
+library.album=#c9c1ee
+library.track=#e5e1ea
+library.enqueued=#f5bd5e
+library.playing=#c9bfff
+
+# Search
+search.label=#c9c1ee
+search.query=#c9bfff
+search.result=#e5e1ea
+search.enqueued=#c9bfff
+search.playing=#c9bfff
+
+# Progress
+progress.filled=#c9bfff
+progress.empty=#484552
+progress.elapsed=#c9bfff
+
+# Status
+status.info=#c9bfff
+status.warning=#f5bd5e
+status.error=#ffb4ab
+status.success=#c9bfff
