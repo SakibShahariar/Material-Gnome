@@ -19,29 +19,26 @@ count_cut      = { fg = "{{colors.on_tertiary_fixed.default.hex}}", bg = "{{colo
 count_selected = { fg = "{{colors.on_primary.default.hex}}", bg = "{{colors.tertiary.default.hex}}" }
 
 # Border
-border_symbol = "│"
+border_symbol = " "
 border_style  = { fg = "{{colors.surface_tint.default.hex}}" }
 
 # : ]]]
 
-
 # : Indicator [[[
 
 [indicator]
-padding = { open = "█", close = "█" }
+padding = { open = "", close = "" }
 
 # : ]]]
-
 
 # : Tabs [[[
 
 [tabs]
 active    = { fg = "{{colors.primary.default.hex}}", bold = true, bg = "{{colors.surface.default.hex}}" }
 inactive  = { fg = "{{colors.secondary.default.hex}}", bg = "{{colors.surface.default.hex}}" }
-sep_inner = { open = "[", close = "]" }
+sep_inner = { open = " ", close = " " }
 
 # : ]]]
-
 
 # : Mode [[[
 
@@ -60,12 +57,11 @@ unset_alt  = { bg = "{{colors.surface_variant.default.hex}}", fg = "{{colors.on_
 
 # : ]]]
 
-
 # : Status [[[
 
 [status]
-sep_left  = { open = "🭁", close = "🭠" }
-sep_right = { open = "🭁", close = "🭠" }
+sep_left  = { open = "", close = "" }
+sep_right = { open = "", close = "" }
 
 # Permissions
 perm_type  = { fg = "{{colors.secondary.default.hex | auto_lightness: 30.0}}" }
@@ -81,7 +77,6 @@ progress_error  = { fg = "{{colors.error.default.hex}}", bg = "{{colors.surface_
 
 # : ]]]
 
-
 # : Which [[[
 
 [which]
@@ -90,11 +85,10 @@ mask = { bg = "{{colors.surface_bright.default.hex}}" }
 cand = { fg = "{{colors.primary.default.hex}}" }
 rest = { fg = "{{colors.on_primary.default.hex}}" }
 desc = { fg = "{{colors.on_surface.default.hex}}" }
-separator = " ▶ "
+separator = " 󰁔 "
 separator_style = { fg = "{{colors.on_surface.default.hex}}" }
 
 # : ]]]
-
 
 # : Notify [[[
 
@@ -105,7 +99,6 @@ title_error = { fg = "{{colors.error.default.hex}}" }
 
 # : ]]]
 
-
 # : Picker [[[
 
 [pick]
@@ -115,7 +108,6 @@ inactive = {}
 
 # : ]]]
 
-
 # : Input [[[
 
 [input]
@@ -124,14 +116,12 @@ value  = { fg = "{{colors.on_surface.default.hex}}" }
 
 # : ]]]
 
-
 # : Completion [[[
 
 [cmp]
 border = { fg = "{{colors.primary.default.hex}}", bg = "{{colors.on_primary.default.hex}}" }
 
 # : ]]]
-
 
 # : Tasks [[[
 
@@ -142,7 +132,6 @@ hovered = { fg = "{{colors.tertiary_fixed.default.hex}}", underline = true }
 
 # : ]]]
 
-
 # : Help [[[
 
 [help]
@@ -151,7 +140,6 @@ run    = { fg = "{{colors.on_surface.default.hex}}" }
 footer = { fg = "{{colors.on_secondary.default.hex}}", bg = "{{colors.secondary.default.hex}}" }
 
 # : ]]]
-
 
 # : File-specific styles [[[
 

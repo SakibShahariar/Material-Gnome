@@ -1,10 +1,9 @@
 # ============================================
-# KEW - Matugen Clean Theme (No Secondary)
+# MATUGEN DYNAMIC THEME TEMPLATE
 # ============================================
 
 [theme]
-name=MatugenClean
-author=auto
+name=Matugen Custom
 
 # Core colors
 accent={{colors.primary.default.hex}}
@@ -13,48 +12,50 @@ textDim={{colors.on_surface_variant.default.hex}}
 textMuted={{colors.outline.default.hex}}
 
 # General Colors
-logo={{colors.on_surface_variant.default.hex}}
-header={{colors.on_surface_variant.default.hex}}
-footer={{colors.on_surface_variant.default.hex}}
+logo={{colors.primary.default.hex}}
+header={{colors.primary.default.hex}}
+footer={{colors.surface_container.default.hex}}
 help={{colors.on_surface.default.hex}}
 link={{colors.primary.default.hex}}
 nowplaying={{colors.primary.default.hex}}
+playbackstatus={{colors.surface_variant.default.hex}}
 
 # Playlist View
-playlist.rownum={{colors.primary.default.hex}}
-playlist.title={{colors.primary.default.hex}}
+playlist.rownum={{colors.outline.default.hex}}
+playlist.title={{colors.on_surface.default.hex}}
 playlist.playing={{colors.primary.default.hex}}
 
 # Track View
+# Primary used here for emphasis on main data
 trackview.title={{colors.primary.default.hex}}
-trackview.artist={{colors.primary_fixed.default.hex}}
-trackview.album={{colors.primary_fixed.default.hex}}
-trackview.year={{colors.outline.default.hex}}
-trackview.time={{colors.outline.default.hex}}
+trackview.artist={{colors.on_surface.default.hex}}
+trackview.album={{colors.on_surface_variant.default.hex}}
+trackview.year={{colors.on_surface_variant.default.hex}}
+trackview.time={{colors.on_surface_variant.default.hex}}
 trackview.visualizer={{colors.primary.default.hex}}
 trackview.lyrics={{colors.on_surface.default.hex}}
 
 # Library View
-library.artist={{colors.on_surface_variant.default.hex}}
-library.album={{colors.on_surface.default.hex}}
+library.artist={{colors.primary.default.hex}}
+library.album={{colors.secondary.default.hex}}
 library.track={{colors.on_surface.default.hex}}
-library.enqueued={{colors.primary_fixed_dim.default.hex}}
+library.enqueued={{colors.tertiary.default.hex}}
 library.playing={{colors.primary.default.hex}}
 
 # Search
-search.label={{colors.on_surface_variant.default.hex}}
+search.label={{colors.secondary.default.hex}}
 search.query={{colors.primary.default.hex}}
 search.result={{colors.on_surface.default.hex}}
-search.enqueued={{colors.primary_fixed_dim.default.hex}}
+search.enqueued={{colors.primary.default.hex}}
 search.playing={{colors.primary.default.hex}}
 
 # Progress
 progress.filled={{colors.primary.default.hex}}
-progress.empty={{colors.surface_container.default.hex}}
-progress.elapsed={{colors.surface_container_high.default.hex}}
+progress.empty={{colors.surface_variant.default.hex}}
+progress.elapsed={{colors.primary.default.hex}}
 
 # Status
-status.info=-1
-status.warning={{colors.error.default.hex}}
+status.info={{colors.primary.default.hex}}
+status.warning={{colors.tertiary.default.hex}}
 status.error={{colors.error.default.hex}}
 status.success={{colors.primary.default.hex}}
