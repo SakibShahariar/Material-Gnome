@@ -7,9 +7,9 @@ end
 # 🖥️ CORE SHELL SETTINGS
 # ======================
 set -g fish_greeting ""                # Disable Fish's default welcome message
-set -gx EDITOR micro                   # Default editor
+set -gx EDITOR fresh                   # Default editor
 set -gx MICRO_TRUECOLOR 1              # Truecolor for micro
-alias nano='micro'                     # Replace nano calls with micro
+alias nano='fresh'                     # Replace nano calls with fresh
 
 # ======================
 # 📁 PATH CONFIGURATION
@@ -56,7 +56,7 @@ bind \cf 'fzf_files'
 alias in='doas dnf install'
 alias re='doas dnf remove'
 alias grub_refresh="doas grub2-mkconfig -o /boot/grub2/grub.cfg"
-alias grub_edit="doas micro /etc/default/grub"
+alias grub_edit="doas fresh /etc/default/grub"
 
 alias weather='curl wttr.in'
 alias starwars="telnet towel.blinkenlights.nl"
@@ -72,9 +72,9 @@ alias disk="dysk"
 # ======================
 # 🎨 CONFIGURATION
 # ======================
-alias fe="micro ~/.config/fish/config.fish"
+alias fe="fresh ~/.config/fish/config.fish"
 alias fr="set -g _fish_reloading 1; source ~/.config/fish/config.fish; set -e _fish_reloading"
-alias ke="micro ~/.config/kitty/kitty.conf"
+alias ke="fresh ~/.config/kitty/kitty.conf"
 
 # ======================
 # 🧩 DEVELOPMENT
@@ -100,7 +100,7 @@ alias mm="matugen.fish"
 # 🧰 UTILITIES
 # ======================
 alias ff="fastfetch"
-alias kotofetch="distrobox enter arch -- kotofetch"
+# alias kotofetch="distrobox enter arch -- kotofetch"
 
 # ======================
 # 📦 DISTROBOX 2.x+ PATH & HELPERS
@@ -109,18 +109,19 @@ alias kotofetch="distrobox enter arch -- kotofetch"
 set -U fish_user_paths /usr/local/sbin $fish_user_paths
 
 # Helper function to launch GUI apps from 'arch' Distrobox container
-function dbx-app
-    if test (count $argv) -eq 0
-        echo "Usage: dbx-app <app> [additional args]"
-        return 1
-    end
-    set app $argv[1]
-    set args $argv[2..-1]
-    distrobox-enter --name arch --bind /run/media:/run/media --gui $app $args
-end
+
+#function dbx-app
+  #  if test (count $argv) -eq 0
+  #     echo "Usage: dbx-app <app> [additional args]"
+  #      return 1
+  #  end
+  #  set app $argv[1]
+  # set args $argv[2..-1]
+  #  distrobox-enter --name arch --bind /run/media:/run/media --gui $app $args
+# end
 
 # Example alias for Media Writer
-alias mediawriter='dbx-app mediawriter'
+# alias mediawriter='dbx-app mediawriter'
 
 # ======================
 # ✨ FUNCTIONS
@@ -154,7 +155,7 @@ end
 function fzf_files
     set file (fzf)
     if test -n "$file"
-        micro $file
+        fresh $file
     end
 end
 
@@ -188,3 +189,8 @@ fish_add_path "/home/sakib/.local/bin"
 # opencode
 fish_add_path /home/sakib/.opencode/bin
 umask 007
+
+
+# Added by Antigravity CLI installer
+set -gx PATH "/home/sakib/.local/bin" $PATH
+
