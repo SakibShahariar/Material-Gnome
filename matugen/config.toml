@@ -25,9 +25,9 @@ post_hook = "pkill -USR1 clock-rs"
 input_path = '~/.config/matugen/templates/mpv-config.conf'
 output_path = '~/.config/mpv/mpv.conf'
 
-[templates.cosmic]
-input_path = '~/.config/matugen/templates/cosmic_theme.ron'
-output_path = '~/.config/cosmic/com.system76.CosmicTheme.v1/v1/custom.ron'
+# [templates.cosmic]
+# input_path = '~/.config/matugen/templates/cosmic_theme.ron'
+# output_path = '~/.config/cosmic/com.system76.CosmicTheme.v1/v1/custom.ron'
 
 [templates.fish]
 input_path = '~/.config/matugen/templates/fish.tpl'
@@ -37,6 +37,10 @@ post_hook = "fish -c 'set -U MATUGEN_RELOAD_TRIGGER (date +%s)'"
 [templates.fix]
 input_path = "~/.config/matugen/templates/fix.css"
 output_path = "~/.config/colors/fix.css"
+
+[templates.fresh]
+input_path = "~/.config/matugen/templates/fresh.json"
+output_path = "~/.config/fresh/themes/matugen.json"
 
 [templates.gnome-shell]
 input_path = '~/.config/matugen/templates/gnome-shell.css'
@@ -134,9 +138,13 @@ output_path = '~/.config/Kvantum/matugen/matugen.svg'
 input_path = '~/.config/matugen/templates/clock-color.css'
 output_path = '~/.config/colors/clock-color.css'
 
-[templates.micro]
-input_path = '~/.config/matugen/templates/micro-colors.micro'
-output_path = '~/.config/micro/colorschemes/colors.micro'
+[templates.matugen]
+input_path = '~/.config/matugen/templates/matugen-colors.toml'
+output_path = '~/.config/matugen/matugen-colors.toml'
+
+# [templates.micro]
+# input_path = '~/.config/matugen/templates/micro-colors.micro'
+# output_path = '~/.config/micro/colorschemes/colors.micro'
 
 [templates.mpv]
 input_path = '~/.config/matugen/templates/mpv-uosc.conf'
