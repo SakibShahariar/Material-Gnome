@@ -25,10 +25,6 @@ post_hook = "pkill -USR1 clock-rs"
 input_path = '~/.config/matugen/templates/mpv-config.conf'
 output_path = '~/.config/mpv/mpv.conf'
 
-# [templates.cosmic]
-# input_path = '~/.config/matugen/templates/cosmic_theme.ron'
-# output_path = '~/.config/cosmic/com.system76.CosmicTheme.v1/v1/custom.ron'
-
 [templates.fish]
 input_path = '~/.config/matugen/templates/fish.tpl'
 output_path = '~/.config/fish/matugen_colors.fish'
@@ -138,9 +134,9 @@ output_path = '~/.config/Kvantum/matugen/matugen.svg'
 input_path = '~/.config/matugen/templates/clock-color.css'
 output_path = '~/.config/colors/clock-color.css'
 
-[templates.matugen]
-input_path = '~/.config/matugen/templates/matugen-colors.toml'
-output_path = '~/.config/matugen/matugen-colors.toml'
+# [templates.matugen]
+# input_path = '~/.config/matugen/templates/matugen-colors.toml'
+# output_path = '~/.config/matugen/matugen-colors.toml'
 
 # [templates.micro]
 # input_path = '~/.config/matugen/templates/micro-colors.micro'
@@ -154,7 +150,7 @@ output_path = '~/.config/mpv/script-opts/uosc.conf'
 input_path = '~/.config/matugen/templates/colors.json'
 output_path = '~/.config/colors.json'
 
-[templates.pop-shell]
+[templates.o-tiling]
 input_path = "~/.config/matugen/templates/pop-shell.css"
 output_path = "~/.config/colors/pop-shell.css"
 
@@ -170,17 +166,9 @@ output_path = '~/.config/qt6ct/colors/colors.conf'
 input_path = "~/.config/matugen/templates/search-light.css"
 output_path = "~/.config/colors/search-light.css"
 
-# [templates.sherlock]
-# input_path = "~/.config/matugen/templates/sherlock.css"
-# output_path = "~/.config/sherlock/main.css"
-
 [templates.space-bar]
 input_path = "~/.config/matugen/templates/space-bar.css"
 output_path = "~/.config/colors/space-bar.css"
-
-#[templates.spf]
-#input_path = '~/.config/matugen/templates/superfile.toml'
-#output_path = '~/.config/superfile/theme/matugen.toml'
 
 [templates.starship]
 input_path = '~/.config/matugen/templates/starship.toml'
