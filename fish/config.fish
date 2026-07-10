@@ -177,7 +177,6 @@ end
 # 🖥️ INTERACTIVE SESSION
 # ======================
 if status is-interactive
-    # Only run fastfetch if we aren't actively reloading the shell
     if not set -q _fish_reloading
         fastfetch --config ~/.config/fastfetch/pre.jsonc
     end
@@ -190,7 +189,12 @@ fish_add_path "/home/sakib/.local/bin"
 fish_add_path /home/sakib/.opencode/bin
 umask 007
 
-
 # Added by Antigravity CLI installer
 set -gx PATH "/home/sakib/.local/bin" $PATH
 
+# pnpm
+set -gx PNPM_HOME "/home/sakib/.local/share/pnpm"
+if not string match -q -- $PNPM_HOME $PATH
+  set -gx PATH "$PNPM_HOME" $PATH
+end
+# pnpm end
