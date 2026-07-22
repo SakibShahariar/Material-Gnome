@@ -398,7 +398,7 @@ spinner:checked:disabled {
 entry headerbar popover.background entry,
 headerbar popover.background entry entry,
 entry {
-  min-height: 40px;
+
   padding: 0 14px;
   border-spacing: 8px;
   border-radius: 20px;
@@ -1286,11 +1286,6 @@ button.text-button {
 button.text-button:checked:hover {
   background-color: var(--primary);
   color: var(--on_primary);
-}
-
-button.image-button {
-  min-width: 24px;
-  padding: 5px;
 }
 
 button.text-button.image-button,
@@ -2397,11 +2392,16 @@ headerbar {
               color            75ms cubic-bezier(0, 0, 0.2, 1);
   background-color: transparent;
   color: var(--primary);
-  min-height: 46px;
   border: none;
   box-shadow: none;
-  padding: 0;
+  padding-top: 3px; 
+  padding-bottom: 0px;
   margin: 0;
+}
+
+headerbar button {
+  margin-top: 2px;
+  margin-bottom: 2px;  
 }
 
 headerbar:disabled {
@@ -2467,39 +2467,8 @@ headerbar headerbar + separator {
   background-color: var(--outline_variant);
 }
 
-headerbar > windowhandle > box {
-  padding: 0 12px;
-}
-
 headerbar windowhandle button {
   color: var(--on_primary) !important;
-}
-
-headerbar > windowhandle > box,
-headerbar > windowhandle > box > box.start,
-headerbar > windowhandle > box > box.end {
-  border-spacing: 6px;
-}
-
-headerbar entry,
-headerbar spinbutton,
-headerbar splitbutton,
-headerbar button,
-headerbar menubutton,
-headerbar stackswitcher,
-headerbar separator:not(.sidebar) {
-  margin-top: 6px;
-  margin-bottom: 6px;
-}
-
-headerbar menubutton > button,
-headerbar spinbutton > button,
-headerbar splitbutton > button,
-headerbar splitbutton > menubutton,
-headerbar .linked > menubutton,
-headerbar entry > menubutton {
-  margin-top: 0;
-  margin-bottom: 0;
 }
 
 headerbar button.star {
@@ -5090,8 +5059,7 @@ row.activatable.has-open-popup {
 
 .nautilus-window .nautilus-grid-view child.activatable:active,
 columnview.view > header > button:active,
-treeview.view > header > button:active,
-row.activatable:active {
+treeview.view > header > button:active {
   background-color: color-mix(in srgb, var(--primary) 15%, transparent);
   color: var(--primary);
   box-shadow: none;
@@ -5167,6 +5135,10 @@ row:selected button label {
 row:selected:disabled image,
 row:selected:disabled label {
   color: color-mix(in srgb, var(--on_surface_variant) 70%, transparent);
+}
+
+row.activatable:active {
+  color: var(--on_primary);
 }
 
 .rich-list > row {
@@ -6448,6 +6420,11 @@ calendar > grid > label.today:selected {
   background-color: var(--primary);
 }
 
+textview text selection:focus,
+textview text selection {
+    background: var(--inverse_primary);
+}
+
 .monospace {
   font-family: monospace;
 }
@@ -6919,7 +6896,6 @@ banner > revealer > widget {
 .nautilus-pathbar {
   background-color: var(--surface_container_low);
   border-radius: 12px;
-  margin: 6px 0;
 }
 
 #NautilusPathButton {
