@@ -1,4 +1,4 @@
-<h1 align="center"> Material-Gnome (Dotfiles) </h3>
+<h1 align="center"> Material-Gnome (Dotfiles) </h1>
 
 <p align="center">
   <a href="https://github.com/SakibShahariar/Material-Gnome/stargazers">
@@ -15,6 +15,10 @@
 A full Matugen-powered, wallpaper-driven theming pipeline for GNOME — generates a consistent Material color palette from your wallpaper and pushes it across the desktop, terminal apps, media players, Qt apps, the file manager, and the browser.
 
 This repo is built on top of the [Material-Gnome theme](https://github.com/SakibShahariar/material-gnome-theme) (GTK3/GTK4/Shell theme) — **that theme is a required dependency**, not optional.
+
+## 📑 Contents
+
+[Screenshots](#screenshots) · [What it does](#what-it-does) · [Repository Structure](#repository-structure) · [Requirements](#requirements) · [Installation](#installation) · [Flatpak Application Support](#flatpak-application-support) · [Usage](#usage) · [Scripts Reference](#scripts-reference) · [Configuration](#configuration) · [License](#license) · [Star History](#star-history)
 
 ---
 
@@ -64,6 +68,8 @@ Material-Gnome/
 ├── yazi/                 # yazi file manager theme + plugins
 ├── micro/                # micro text editor theme
 ├── fish/                  # fish shell config
+├── fastfetch/             # fastfetch system info config
+├── kew/                   # kew terminal music player theme
 ├── starship.toml          # Starship prompt config
 ├── clock-rs/               # clock-rs config
 └── zen.css                  # Zen Browser theme
@@ -181,6 +187,13 @@ bash ~/Scripts/gnome-layout-switcher.sh
 | `apply-theme.fish` | Called internally by `theme-switcher.py` to apply the selected theme |
 | `theme-wallpicker.py` | Picker UI for choosing a premade theme |
 | `wallpicker.py` | Picker UI for choosing a wallpaper |
+| `folder_icon.sh` | Recolors folder icons from the palette using color-distance matching |
+| `gtk-themes-reload.sh` | Forces a GTK theme reload without logging out (flips the color scheme) |
+| `choose-accent.sh` | Sets a custom accent color (`#rrggbb`) across configs — no dependencies |
+| `color_picker.py` | Libadwaita "dual color picker" — visually pick colors from a palette |
+| `avg-colors.py` | Computes the palette's average color and rewrites it into GTK/terminal theme files |
+| `darkmode-listener.sh` | Watches for external dark/light toggles (Quick Settings) |
+| `yazi-theme.py` | Renders `yazi`'s `theme.toml` from the generated palette + template |
 | `gnome_logout.py` | Simple logout menu |
 | `update-boost.js` | Syncs the generated theme into Zen Browser (called by `matugen.fish`) |
 | `matugen_pick.fish` | Reserved for future use |
@@ -202,5 +215,15 @@ This project is licensed under the **GPL-3.0 License** — see the [LICENSE](LIC
 
 This repo also bundles a few third-party components under their own licenses — see [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md) for details.
 
-## Star History
-[![Star History Chart](https://api.star-history.com/svg?repos=SakibShahariar/Material-Gnome&type=Date)](https://star-history.com/#SakibShahariar/Material-Gnome&Date)
+## ⭐ Star History
+
+<div align="center">
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=SakibShahariar/Material-Gnome&type=Date&theme=dark">
+  <img src="https://api.star-history.com/svg?repos=SakibShahariar/Material-Gnome&type=Date&theme=light" alt="Star History Chart">
+</picture>
+
+</div>
+
+Full interactive chart: [star-history.com](https://star-history.com/#SakibShahariar/Material-Gnome)
